@@ -1,4 +1,151 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+ # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+ 
+name: Python package
+
+on:
+  pull_request:
+    branches:
+      - main
+  pull_request_review:
+    branches: [ main ]
+    types: [ submitted ]
+
+jobs:
+  python_check:
+    runs-on: ubuntu-latest
+    strategy:
+       fail-fast: false
+       matrix:
+         python-version: ["3.8", "3.9", "3.10"]
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Remove ready for review label Linux
+        if: contains(github.event.pull_request.labels.*.name, 'ready for review')
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request DELETE \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20for%20review \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json")
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+         python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+         python -m pip install --upgrade pip
+         python -m pip install flake8 pytest
+         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Lint with flake8
+        run: |
+         # stop the build if there are Python syntax errors or undefined names
+         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Test with pytest
+        run: |
+         pytest
+
+  on-requested-changes:
+    if: github.event.review.state == 'CHANGES_REQUESTED'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Remove ready to merge label on Linux
+        if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request DELETE \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20to%20merge \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json")
+
+  on-python-check-pass:
+    needs: python_check
+    if: needs.python_check.result == 'success'
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Add ready for review label Linux
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request POST \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20for%20review \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json" -d "{\"labels\": [\"ready for review\"]}")
+
+      - name: Remove ready to merge label Linux
+        if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request DELETE \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20to%20merge \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json"
+
+  on-approval:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: List reviews on PR Linux
+        id: approval_counts_linux
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          repo_url="hs3city/ordinal-scale-stats-py"
+          
+          response=$(curl -sSl --request GET \
+          --url https://api.github.com/repos/${repo_url}/pulls/${{ github.event.pull_request.number }}/reviews \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json")
+          
+          count_approvals=$(echo $response | jq '.[-2] | map(select(.state == "APPROVED")) | map({state: .state}) | group_by(.state) | map({state: .[0], count: length}) | .[].count')
+          echo "number of approvals: ${count_approvals}"
+          echo "count_approvals=${count_approvals}" >> $GITHUB_OUTPUT
+
+      - name: Add ready to merge label Linux
+        if: steps.approval_counts_linux.outputs.count_num >= 2
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request POST \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20to%20merge \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json" -d "{\"labels\": [\"ready to merge\"]}")
+
+      - name: Remove ready for review label Linux
+        if: contains(github.event.pull_request.labels.*.name, 'ready for review') && steps.approval_counts_linux.outputs.count_num >= 2
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request DELETE \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20for%20review \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json")
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 name: Python package
