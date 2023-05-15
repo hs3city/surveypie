@@ -1,0 +1,8 @@
+# OS generated files #
+.DS_Store
+.DS_Store?
+*._*
+
+### JupyterNotebook ###
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
