@@ -1,0 +1,143 @@
+Column Name,Description,Type
+year,Survey year,Plain Text
+weight,Respondent weighting,Number
+general_rate,General quality of City services,Number
+inf_water,Reliable delivery of drinking water,Number
+inf_sewer,Reliable sewer and stormwater services,Number
+inf_cleanpwr,CleanPowerSF or Hetch Hetchy Power,Number
+inf_cleanpwr_qual,Quality of CleanPowerSF or Hetch Hetchy Power,Number
+inf_clean,Cleanliness of streets and sidewalks in your neighborhood,Number
+inf_sidecond,Sidewalk pavement and curb ramps condition,Number
+inf_stcond,Condition of pavement in neighborhood,Number
+inf_stopen1,Streets and sidewalks cleanliness reason,Plain Text
+inf_stopen2,Streets and sidewalks cleanliness reason,Plain Text
+inf_stopen3,Streets and sidewalks cleanliness reason,Plain Text
+inf_light,Adequacy of city street lighting,Plain Text
+inf_watsew,Quailty of water and sewer services,Plain Text
+inf_clean_side,Cleanliness of neighborhood sidewalks,Plain Text
+inf_clean_st,Cleanliness of streets in neighborhood,Plain Text
+rec_rate,Quality of the city's recreation and parks system,Number
+rec_freq,Frequency of visiting a city park,Plain Text
+rec_nonuser1,Parks non-usage reason,Plain Text
+rec_nonuser2,Parks non-usage reason,Plain Text
+rec_nonuser3,Parks non-usage reason,Plain Text
+rec_plant,Quality of park and rec landscaping and plantings,Plain Text
+rec_field,Quality of athletic fields,Plain Text
+rec_clean,Park cleanliness,Plain Text
+rec_ctr_yes,Rec program participation,Plain Text
+rec_ctr_clean,Quality of park facilities,Plain Text
+rec_ctr_qual,Quality of recreation programs and activities,Plain Text
+rec_grounds,Quality of park grounds,Plain Text
+lib_rate,Overall quality of the San Francisco library system,Number
+lib_main_freq,Frequency of visits to main library,Plain Text
+lib_branch_freq,Frequency of visits to branch libraries,Plain Text
+lib_online_freq,Use of the online library,Plain Text
+lib_nonuser1,Library non-usage reason,Plain Text
+lib_nonuser2,Library non-usage reason,Plain Text
+lib_nonuser3,Library non-usage reason,Plain Text
+lib_books,Quality of library collections,Plain Text
+lib_online,Use of the online library,Plain Text
+lib_wifi,Internet access at library computer stations,Plain Text
+lib_staff,Quality of assistance form library staff,Plain Text
+lib_clean,Condition of the library,Plain Text
+lib_qual,Quality of library programs,Plain Text
+lib_clean_main,Condition of the Main library,Plain Text
+lib_clean_branch,Condition of the neighborhood branch library,Plain Text
+muni_rate,Overall quality of Muni,Number
+muni_user_yes,Muni User,Number
+muni_nonuser1,Muni non-usage reason,Plain Text
+muni_nonuser2,Muni non-usage reason,Plain Text
+muni_nonuser3,Muni non-usage reason,Plain Text
+muni_reliable,Muni timeliness and reliability,Plain Text
+muni_clean,Cleanliness of buses and trains,Plain Text
+muni_safe,Muni safety,Plain Text
+muni_crowd,Muni managing crowding,Plain Text
+muni_driver,Courtesy of Muni drivers,Plain Text
+covid_response,Overall COVID Response,Number
+covid_econ,Economic COVID Response,Number
+covid_fin,COVID financial situation,Plain Text
+safe_day,Safety in the neighborhood during the day,Number
+safe_night,Safety in the neighborhood at night,Number
+safe_open1,Reasons for feeling unsafe,Plain Text
+safe_open2,Reasons for feeling unsafe,Plain Text
+safe_open3,Reasons for feeling unsafe,Plain Text
+safe_polqual,Police quality in neighborhood,Number
+safe_poltrust,Feelings of police trust,Number
+safe_polinter,Interactions with police,Plain Text
+u311_heard,Heard of 311,Plain Text
+u311_user_yes,Used 311,Plain Text
+u311_rate,Satisfaction rating for 311,Plain Text
+u311_freq_phone,Frequency contacted 311 by phone,Plain Text
+u311_freq_web,Frequency used 311 service by the web,Plain Text
+u311_info_phone,Ease of getting city information by calling 311,Plain Text
+u311_info_web,Ease of getting city information on the web,Plain Text
+u311_svc_phone,Ease of requesting a city service by calling 311,Plain Text
+u311_svc_web,Ease of requesting a city service on the web,Plain Text
+u311_rate_phone,Satisfaction rating for calling 311,Plain Text
+u311_rate_web,Satisfaction rating using 311 web,Plain Text
+child_05,Kids 0 through 5 living in SF,Number
+child_617,Kids 6 through 17 living in SF,Number
+child_yes,Have kids 18 or under in SF household,Plain Text
+child_school,Quality of the school(s) your children attend,Plain Text
+child_sfprivate,Kids attend private school in SF,Plain Text
+child_sfpublic,Kids attend public school in SF,Plain Text
+child_nonsf,Kids do not attend school in SF,Plain Text
+dem_raceeth,Respondent's ethnicity,Plain Text
+dem_lang_eng,Primary language - English,Number
+dem_lang_chi,Primary language - Chinese,Number
+dem_lang_spa,Primary language - Spanish,Number
+dem_lang_rus,Primary language - Russian,Number
+dem_lang_tag,Primary language - Tagalog,Number
+dem_lang_oth,Primary language - Other,Number
+dem_lang_non,Primary language - Refused/Skipped,Number
+dem_homeown,Own or rent home,Plain Text
+dem_sflived,Length of SF residence,Plain Text
+dem_sfmove,Likelihood of moving away from SF in the next 3 years,Plain Text
+dem_hhsize,Number of people in household,Number
+dem_income,Household income,Plain Text
+dem_age,Respondent's age group,Plain Text
+dem_dis_yes,Physical disabilities / limitations,Number
+dem_diffwalk,Difficulty walking or climbing steps,Number
+dem_diffsee,Difficulty seeing or hearing,Number
+dem_diffcomm,Difficulty communicating,Number
+dem_diffother,Difficulty doing something else,Number
+dem_dis_challenge1,Biggest challenge given difficulties/disabilities,Plain Text
+dem_dis_challenge2,Biggest challenge given difficulties/disabilities,Plain Text
+dem_dis_challenge3,Biggest challenge given difficulties/disabilities,Plain Text
+dem_gender,Respondent's gender,Plain Text
+dem_sorient,Respondent's sexual orientation,Plain Text
+dem_ed,Respondent's highest education completed,Plain Text
+dem_physdis_yes,Physical disabilities/ limitations,Plain Text
+dem_mentdis_yes,Mental disabilities/ limitations,Plain Text
+issue_1,Most important City issue,Plain Text
+issue_2,Most important City issue,Plain Text
+issue_3,Most important City issue,Plain Text
+issue_4,Most important City issue,Plain Text
+updown_homeless,Homelessness change,Plain Text
+updown_stclean,Streets and sidewalks cleanliness change,Plain Text
+updown_pubsafe,Public safety change,Plain Text
+updown_hous,Housing affordability change,Plain Text
+mode,Survey mode,Plain Text
+id,Unique id,Plain Text
+svylanguage,Survey language,Plain Text
+trans_muni_freq,Public transportation frequency,Plain Text
+trans_bike_freq,Biking frequency,Plain Text
+trans_walk_freq,Walking/rolling frequency,Plain Text
+trans_taxi_freq,Taxi frequency,Plain Text
+trans_uber_freq,Uber/Lyft frequency,Plain Text
+trans_drive_freq,Driving alone frequency,Plain Text
+trans_pool_freq,Carpool frequency,Plain Text
+trans_para_freq,Paratransit frequency,Plain Text
+dt_visit,Downtown visit frequency,Plain Text
+dt_activ_work,Primary activity done downtown - Work,Number
+dt_activ_shop,Primary activity done downtown - Shop,Number
+dt_activ_night,Primary activity done downtown - Nightlife,Number
+dt_activ_live,Primary activity done downtown - Live Entertainment,Number
+dt_activ_event,Primary activity done downtown - Public Events,Number
+dt_activ_cultu,Primary activity done downtown - Cultural Institutions,Number
+dt_activ_oth,Primary activity done downtown - Other,Number
+dt_activ_non,Primary activity done downtown - None/Refused,Number
+dt_nonuser1,Downtown non-usage reason,Plain Text
+dt_nonuser2,Downtown non-usage reason,Plain Text
+dt_nonuser3,Downtown non-usage reason,Plain Text
+BOSdistrict,Respondent supervisor district,Number
