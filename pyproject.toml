@@ -2,7 +2,7 @@
 name = "ordinal-scale-stats-py"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = ["HackerSpace Trójmiasto"]
 license = "MIT license"
 readme = "README.md"
 packages = [{include = "ordinal_scale_stats_py"}]
