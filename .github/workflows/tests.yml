@@ -1,0 +1,58 @@
+name: Tests
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+env:
+  PYTHON_VERSION: 3.11
+  POETRY_VERSION: 1.5.1
+
+jobs:
+  black:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Poetry
+        run: pipx install poetry==${{ env.POETRY_VERSION }}
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'poetry'
+      - name: Install poetry dependencies
+        run: poetry install
+      - name: Run black through poetry
+        run: poetry run black src --check
+  flake8:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Poetry
+        run: pipx install poetry==${{ env.POETRY_VERSION }}
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'poetry'
+      - name: Install poetry dependencies
+        run: poetry install
+      - name: Run flake8 through poetry
+        run: poetry run flake8
+  pytest:
+    runs-on: ubuntu-latest
+    name: Tests
+    timeout-minutes: 6
+    needs: [black,flake8]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Poetry
+        run: pipx install poetry==${{ env.POETRY_VERSION }}
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'poetry'
+      - name: Install dependencies
+        run: poetry install
+      - name: Run pytest through poetry
+        run: poetry run pytest
