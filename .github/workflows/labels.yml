@@ -22,7 +22,7 @@ jobs:
           --header "Authorization: token ${token}" \
           --header "Accept: application/vnd.github+json")
   on-tests-pass:
-    needs: [tests.black,tests.flake8,tests.pytest]
+    needs: tests.pytest.outputs.workflow_run_conclusion
     runs-on: ubuntu-latest
     permissions:
       contents: read
