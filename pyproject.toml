@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "ordinal-scale-stats-py"
-version = "0.1.0"
+name = "ordinal-scale-stats"
+version = "0.0.1"
 description = ""
 authors = ["HackerSpace Trójmiasto"]
 license = "MIT license"
