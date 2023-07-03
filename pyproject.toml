@@ -9,6 +9,10 @@ packages = [{include = "ordinal_scale_stats_py"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+black = "^23.3.0"
+flake8 = "^6.0.0"
+pytest = "^7.4.0"
+pandas = "^2.0.3"
 
 
 [build-system]
