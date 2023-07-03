@@ -19,7 +19,8 @@ class AllisonFosterMeasures:
 
 def compute_measures(data: typing.List) -> AllisonFosterMeasures:
     """
-    Function for computation Allison-Foster index and mean of the values above (H) group median value,
+    Function for computation Allison-Foster index and mean of the values
+    above (H) group median value,
     mean of the values below (L) group median value
     Algorithm: Allison-Foster index = mean_h - mean_l
     :param data: List of values to compute Allison-Foster index from
