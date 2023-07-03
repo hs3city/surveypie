@@ -1,7 +1,7 @@
 import random
 
-import allison_foster
-from allison_foster import AllisonFosterMeasures
+from src import allison_foster
+from src.allison_foster import AllisonFosterMeasures
 
 
 def test_measures_calculation():
