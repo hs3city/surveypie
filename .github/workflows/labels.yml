@@ -1,0 +1,63 @@
+name: Labels
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  on-requested-changes:
+    if: github.event.review.state == 'CHANGES_REQUESTED'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Remove ready to merge label on Linux
+        if: contains(github.event.pull_request.labels.*.name, 'ready to merge')
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request DELETE \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20to%20merge \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json")
+  on-approval:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: List reviews on PR Linux
+        id: approval_counts_linux
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          repo_url="hs3city/ordinal-scale-stats-py"
+          
+          response=$(curl -sSl --request GET \
+          --url https://api.github.com/repos/${repo_url}/pulls/${{ github.event.pull_request.number }}/reviews \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json")
+          
+          count_approvals=$(echo $response | jq '.[-2] | map(select(.state == "APPROVED")) | map({state: .state}) | group_by(.state) | map({state: .[0], count: length}) | .[].count')
+          echo "number of approvals: ${count_approvals}"
+          echo "count_approvals=${count_approvals}" >> $GITHUB_OUTPUT
+      - name: Add ready to merge label Linux
+        if: steps.approval_counts_linux.outputs.count_num >= 2
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request POST \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20to%20merge \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json" -d "{\"labels\": [\"ready to merge\"]}")
+      - name: Remove ready for review label Linux
+        if: contains(github.event.pull_request.labels.*.name, 'ready for review') && steps.approval_counts_linux.outputs.count_num >= 2
+        shell: bash
+        run: |
+          token=${{ secrets.GITHUB_TOKEN }}
+          response=$(curl -sSl --request DELETE \
+          --url https://api.github.com/repos/hs3city/ordinal-scale-stats-py/issues/${{ github.event.pull_request.number }}/labels/ready%20for%20review \
+          --header "Authorization: token ${token}" \
+          --header "Accept: application/vnd.github+json")
