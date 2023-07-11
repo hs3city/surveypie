@@ -1,6 +1,6 @@
-import statistics
 import typing
 from dataclasses import dataclass
+
 import numpy
 
 
