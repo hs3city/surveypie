@@ -1,23 +1,24 @@
 import statistics
 import typing
 from dataclasses import dataclass
+import numpy
 
 
 @dataclass
-class AllisonFosterMeasures:
+class AllisonFosterIndex:
     """
     Class representation of measures for Allison-Foster index
     index:  Allison-Foster index
-    mean_h: mean of the values above (H) group median value
-    mean_l: mean of the values below (L) group median value
+    u_h: mean of the values above (H) group median value
+    u_l: mean of the values below (L) group median value
     """
 
     index: float
-    mean_h: float
-    mean_l: float
+    u_h: float
+    u_l: float
 
 
-def compute_measures(data: typing.List) -> AllisonFosterMeasures:
+def compute_measures(data: typing.Iterable) -> AllisonFosterIndex:
     """
     Function for computation Allison-Foster index and mean of the values
     above (H) group median value,
@@ -26,7 +27,7 @@ def compute_measures(data: typing.List) -> AllisonFosterMeasures:
     :param data: List of values to compute Allison-Foster index from
     :return: Allison-Foster index, mean_h, mean_l
     """
-    median_value = statistics.median(data)
+    median_value = numpy.median(data)
     values_above_median = [value for value in data if value > median_value]
     values_below_median = [
         value
@@ -34,8 +35,8 @@ def compute_measures(data: typing.List) -> AllisonFosterMeasures:
         if value not in values_above_median and value != median_value
     ]
 
-    mean_h = statistics.mean(values_above_median)
-    mean_l = statistics.mean(values_below_median)
+    mean_h = float(numpy.mean(values_above_median))
+    mean_l = float(numpy.mean(values_below_median))
     allison_foster_index = mean_h - mean_l
 
-    return AllisonFosterMeasures(allison_foster_index, mean_h, mean_l)
+    return AllisonFosterIndex(allison_foster_index, mean_h, mean_l)
