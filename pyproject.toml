@@ -5,14 +5,16 @@ description = ""
 authors = ["HackerSpace Trójmiasto"]
 license = "MIT license"
 readme = "README.md"
-packages = [{include = "ordinal_scale_stats_py"}]
+packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "~3.10"
 black = "^23.3.0"
 flake8 = "^6.0.0"
 pytest = "^7.4.0"
 pandas = "^2.0.3"
+numpy = "^1.25.1"
+scipy = "^1.11.1"
 
 
 [build-system]
