@@ -1,0 +1,15 @@
+import typing
+
+import pandas as pd
+
+
+def summary(data: typing.Iterable, percentiles_list=None) -> pd.DataFrame:
+    """
+    Calculates summary statistics of observed levels
+    :param percentiles_list: the percentiles to include in the output, should fall between 0 and 1
+    :param data: list-like or array-like object with numerical data
+    :return: pandas DataFrame with statistics
+    """
+    if percentiles_list is None:
+        percentiles_list = [.25, .5, .75]
+    return pd.DataFrame(data).describe(percentiles=percentiles_list)
