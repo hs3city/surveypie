@@ -8,11 +8,11 @@ def test_on_example():
     summary_stats = summary(dataset)
 
     assert isinstance(summary_stats, pd.DataFrame)
-    assert summary_stats.loc['count', 0] == len(dataset)
-    assert summary_stats.loc['min', 0] == 1
-    assert summary_stats.loc['max', 0] == 5
-    assert summary_stats.loc['mean', 0] == sum(dataset) / len(dataset)
-    assert summary_stats.loc['std', 0] == 1.366658
-    assert summary_stats.loc['25%', 0] == 1.750000
-    assert summary_stats.loc['50%', 0] == 3.000000
-    assert summary_stats.loc['75%', 0] == 4.000000
+    assert summary_stats.loc["count", 0] == len(dataset)
+    assert summary_stats.loc["min", 0] == 1
+    assert summary_stats.loc["max", 0] == 5
+    assert summary_stats.loc["mean", 0] == sum(dataset) / len(dataset)
+    assert summary_stats.loc["std", 0] == 1.366658
+    assert summary_stats.loc["25%", 0] == 1.750000
+    assert summary_stats.loc["50%", 0] == 3.000000
+    assert summary_stats.loc["75%", 0] == 4.000000

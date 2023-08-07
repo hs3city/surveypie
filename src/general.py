@@ -11,5 +11,5 @@ def summary(data: typing.Iterable, percentiles_list=None) -> pd.DataFrame:
     :return: pandas DataFrame with statistics
     """
     if percentiles_list is None:
-        percentiles_list = [.25, .5, .75]
+        percentiles_list = [0.25, 0.5, 0.75]
     return pd.DataFrame(data).describe(percentiles=percentiles_list)
