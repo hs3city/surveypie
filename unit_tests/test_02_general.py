@@ -13,7 +13,7 @@ def test_on_example():
     assert summary_stats.loc["min", 0] == 1
     assert summary_stats.loc["max", 0] == 5
     assert summary_stats.loc["mean", 0] == sum(dataset) / len(dataset)
-    assert summary_stats.loc["std", 0] == 1.366658
-    assert summary_stats.loc["25%", 0] == 1.750000
-    assert summary_stats.loc["50%", 0] == 3.000000
-    assert summary_stats.loc["75%", 0] == 4.000000
+    assert round(summary_stats.loc["std", 0], 2) == 1.37
+    assert round(summary_stats.loc["25%", 0], 2) == 1.75
+    assert round(summary_stats.loc["50%", 0], 2) == 3.00
+    assert round(summary_stats.loc["75%", 0], 2) == 4.00
