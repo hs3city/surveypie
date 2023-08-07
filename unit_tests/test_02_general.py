@@ -4,7 +4,8 @@ from src.general import summary
 
 
 def test_on_example():
-    dataset = [2, 1, 4, 3, 1, 5, 3, 3, 4, 2, 1, 1, 3, 3, 4, 5, 5, 4, 3, 2, 2, 1, 2, 1]
+    dataset = [2, 1, 4, 3, 1, 5, 3, 3, 4, 2, 1, 1, 3, 3, 4,
+               5, 5, 4, 3, 2, 2, 1, 2, 1]
     summary_stats = summary(dataset)
 
     assert isinstance(summary_stats, pd.DataFrame)

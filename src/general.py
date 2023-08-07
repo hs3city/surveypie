@@ -6,7 +6,8 @@ import pandas as pd
 def summary(data: typing.Iterable, percentiles_list=None) -> pd.DataFrame:
     """
     Calculates summary statistics of observed levels
-    :param percentiles_list: the percentiles to include in the output, should fall between 0 and 1
+    :param percentiles_list: the percentiles to include in the output,
+    should fall between 0 and 1
     :param data: list-like or array-like object with numerical data
     :return: pandas DataFrame with statistics
     """
