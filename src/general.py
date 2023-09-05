@@ -13,4 +13,6 @@ def summary(data: typing.Iterable, percentiles_list=None) -> pd.DataFrame:
     """
     if percentiles_list is None:
         percentiles_list = [0.25, 0.5, 0.75]
-    return pd.DataFrame(data).describe(percentiles=percentiles_list)
+    df = pd.DataFrame(data).describe(percentiles=percentiles_list)
+    df.columns = ['summary']
+    return df
