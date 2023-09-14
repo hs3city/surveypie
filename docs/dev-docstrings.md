@@ -66,7 +66,7 @@ def do_something(a: float, b, c_opt=None) -> int:
         Description of the parameter ``b`` without any type.
         
     c_opt : float or None, optional, default=None
-            Description of the ``c_opt`` parameter.
+        Description of the ``c_opt`` parameter.
             
     Returns
     -------
@@ -127,282 +127,69 @@ Parts:
 
 class MyClass:
     """
-    Class returns square of a given distance.
+    Class stores data, and performs operations on it.
     
     Parameters
     ----------
-    distance : float
-               Real number. Distance from point A to point B.
+    param_a : float
+        A real number.
                
     Attributes
     ----------
-    dist : float
-           Distance from point A to point B.
+    param_x : float
+        A real number.
            
-    y : int, constant=2
-        Constant power factor.
-        
-    dist_square : float
-                  Positive real number. Distance raised to the power of 2.
+    param_y : int
+        Value that ``param_x`` must be raised to.
                    
     Methods
     -------
-    square(pdist=None)
-        If pdist is None: raises attribute dist to the power of 2.
-        If pdist is given and it is a real number: overrides dist and dist_square attributes and raises pdist to the power of 2.
-    
+    do_something()
+        Transforms input data.
+        
     __str__()
         Prints current state of the object.
         
     Examples
     --------
-    >>> geo = GeoDataClass(0)
-    >>> geo.square(3)
-    >>> print(geo)
-    Square of 3 is 9.
+    >>> mycls = MyClass(0)
+    >>> mycls.do_something()
+    0
+    >>> print(mycls)
+    I'm the MyClass object and I did something!
     
     """
     
-    def __init__(self, distance: float):
-        self.dist = distance
-        self.y = 2
-        self.dist_square = self.square()
+    def __init__(self, param_x: float):
+        self.param_x = param_x
+        self.param_y = 44
+        self.result = self.do_something()
         
-    def square(self, pdist=None):
+    def do_something(self):
         """
-        Method raises dist to the power of 2 and stores result in dist_squared attribute.
-        
-        Parameters
-        ----------
-        pdist : float or None, default=None
-                If given then it overrides dist and dist_squared attributes and a square of this number is returned.
+        Method raises ``param_x`` to the power of ``param_y`` and stores result in the ``result`` attribute.
         
         Returns
         -------
-        float
-            dist^2
+        : float
+            ``param_x`` raised to the power of ``param_y``.
         """
-        if pdist is None:
-            return self.dist ** self.y
-        else:
-            self.dist = pdist
-            self.square()
+        return self.param_x**self.param_y
         
     def __str__(self):
-        return f'Square of {self.dist} is {self.dist_square}.'
+        return f'I"m the MyClass object and I did something!.'
 
 ```
 
-### Example
+##### Example
 
-```python
-class EmpiricalVariogram:
-    """
-    Class calculates Experimental Semivariogram and Experimental Covariogram of a given dataset.
+TODO: pick something from the project.
 
-    Parameters
-    ----------
-    input_array : numpy array
-                  coordinates and their values: (pt x, pt y, value) or (Point(), value).
-
-    step_size : float
-                distance between lags within each points are included in the calculations.
-
-    max_range : float
-                maximum range of analysis.
-
-    weights : numpy array or None, optional, default=None
-              weights assigned to points, index of weight must be the same as index of point, if provided then
-              the semivariogram is weighted.
-
-    direction : float (in range [0, 360]), optional, default=0
-                direction of semivariogram, values from 0 to 360 degrees:
-                * 0 or 180: is NS direction,
-                * 90 or 270 is EW direction,
-                * 45 or 225 is NE-SW direction,
-                * 135 or 315 is NW-SE direction.
-
-    tolerance : float (in range [0, 1]), optional, default=1
-                If tolerance is 0 then points must be placed at a single line with the beginning in the origin of
-                the coordinate system and the angle given by y axis and direction parameter. If tolerance is > 0 then
-                the bin is selected as an elliptical area with major axis pointed in the same direction as the line
-                for 0 tolerance.
-                * The minor axis size is (tolerance * step_size)
-                * The major axis size is ((1 - tolerance) * step_size)
-                * The baseline point is at a center of the ellipse.
-                Tolerance == 1 creates an omnidirectional semivariogram.
-
-    is_semivariance : bool, optional, default=True
-                      should semivariance be calculated?
-
-    is_covariance : bool, optional, default=True
-                    should covariance be calculated?
-
-    is_variance : bool, optional, default=True
-                  should variance be calculated?
-
-    Attributes
-    ----------
-    input_array : numpy array
-                  The array with coordinates and observed values.
-
-    experimental_semivariance_array : numpy array or None, optional, default=None
-                                      The array of semivariance per lag in the form:
-                                      (lag, semivariance, number of points within lag).
-
-    experimental_covariance_array : numpy array or None, optional, default=None
-                                    The array of covariance per lag in the form:
-                                    (lag, covariance, number of points within lag).
-
-    experimental_semivariances : numpy array or None, optional, default=None
-                                 The array of semivariances.
-
-    experimental_covariances : numpy array or None, optional, default=None
-                               The array of covariances, optional, default=None
-
-    variance_covariances_diff : numpy array or None, optional, default=None
-                                The array of differences c(0) - c(h).
-
-    lags : numpy array or None, default=None
-           The array of lags (upper bound for each lag).
-
-    points_per_lag : numpy array or None, default=None
-                     A number of points in each lag-bin.
-
-    variance : float or None, optional, default=None
-               The variance of a dataset, if data is second-order stationary then we are able to retrieve a semivariance
-               as a difference between the variance and the experimental covariance:
-
-                    (Eq. 1)
-
-                        g(h) = c(0) - c(h)
-
-                        where:
-
-                        g(h): semivariance at a given lag h,
-                        c(0): variance of a dataset,
-                        c(h): covariance of a dataset.
-
-                Important! Have in mind that it works only if process is second-order stationary (variance is the same
-                for each distance bin) and if the semivariogram has the upper bound.
-                See also: variance_covariances_diff attribute.
-
-    step : float
-        Derived from the step_size parameter.
-
-    mx_rng : float
-        Derived from the  max_range parameter.
-
-    weights : numpy array or None
-        Derived from the weights paramtere.
-
-    direct: float
-        Derived from the direction parameter.
-
-    tol : float
-        Derived from the tolerance parameter.
-
-    Methods
-    -------
-    __str__()
-        prints basic info about the class parameters.
-
-    __repr__()
-        reproduces class initialization with an input data.
-
-    See Also
-    --------
-    calculate_covariance : function to calculate experimental covariance and variance of a given set of points.
-    calculate_semivariance : function to calculate experimental semivariance from a given set of points.
-
-    Examples
-    --------
-    >>> import numpy as np
-    >>> REFERENCE_INPUT = np.array([
-    ...    [0, 0, 8],
-    ...    [1, 0, 6],
-    ...    [2, 0, 4],
-    ...    [3, 0, 3],
-    ...    [4, 0, 6],
-    ...    [5, 0, 5],
-    ...    [6, 0, 7],
-    ...    [7, 0, 2],
-    ...    [8, 0, 8],
-    ...    [9, 0, 9],
-    ...    [10, 0, 5],
-    ...    [11, 0, 6],
-    ...    [12, 0, 3]
-    ...    ])
-    >>> STEP_SIZE = 1
-    >>> MAX_RANGE = 4
-    >>> empirical_smv = EmpiricalVariogram(REFERENCE_INPUT, step_size=STEP_SIZE, max_range=MAX_RANGE)
-    >>> print(empirical_smv)
-    +-----+--------------------+---------------------+--------------------+
-    | lag |    semivariance    |      covariance     |    var_cov_diff    |
-    +-----+--------------------+---------------------+--------------------+
-    | 1.0 |       4.625        | -0.5434027777777798 | 4.791923487836951  |
-    | 2.0 | 5.2272727272727275 | -0.7954545454545454 | 5.0439752555137165 |
-    | 3.0 |        6.0         | -1.2599999999999958 | 5.508520710059168  |
-    +-----+--------------------+---------------------+--------------------+
-    """
-
-    def __init__(self, input_array, step_size: float, max_range: float, weights=None, direction=0, tolerance=1,
-                 is_semivariance=True, is_covariance=True, is_variance=True):
-
-        if not isinstance(input_array, np.ndarray):
-            input_array = np.array(input_array)
-
-        self.input_array = input_array
-        self.experimental_semivariance_array = None
-        self.experimental_covariance_array = None
-        self.lags = None
-        self.experimental_semivariances = None
-        self.experimental_covariances = None
-        self.variance_covariances_diff = None
-        self.points_per_lag = None
-        self.variance = 0
-
-        self.step = step_size
-        self.mx_rng = max_range
-        self.weights = weights
-        self.direct = direction
-        self.tol = tolerance
-
-        self.__c_sem = is_semivariance
-        self.__c_cov = is_covariance
-        self.__c_var = is_variance
-
-    def _calculate_covariance(self, get_variance=False):
-        """
-        Method calculates covariance and variance.
-
-        See : calculate_covariance function.
-        """
-        pass
-
-    def _calculate_semivariance(self):
-        """
-        Method calculates semivariance.
-
-        See: calculate_semivariance function.
-        """
-        pass
-
-    def __repr__(self):
-        pass
-
-    def __str__(self):
-        pass
-
-    def __str_empty(self):
-        pass
-```
-
-## Modules
+#### Modules
 
 **Important!**
 
-A description of modules in **Pyinterpolate** is slightly different than the `numpy` style. We include module docstring at a top of the file that groups multiple functions and classes and has own specific logic.
+A description of modules in **ordinal-scale-stats-py** is slightly different than the `numpy` style. We include module docstring at a top of the file that groups multiple functions and classes and has own specific logic.
 
 Parts:
 
@@ -416,7 +203,7 @@ Parts:
 
 The role of docstring in a module is to store information about changes, contributors and algorithm sources. We do not present examples - for this we have tutorials and function / class docs.
 
-### Template
+##### Template
 
 ```python
 """
@@ -453,12 +240,12 @@ Bibliography
 
 TODO
 ----
-- Create a docstring for variogram.empirical module
+- Create a docstring for the ``my_new_function()`` function.
 
 """
 ```
 
-### Example
+##### Example
 
 TODO :)
 
