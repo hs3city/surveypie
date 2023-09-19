@@ -6,8 +6,10 @@ from pandas import Index, Series
 from pandas.core.arrays import ExtensionArray
 
 
-def info(ds: Sequence,
-         indicators: Union[ExtensionArray, ndarray, Index, Series, Sequence, list, range, None]) -> pd.DataFrame:
+IND_TYPES = Union[ExtensionArray, ndarray, Index, Series, Sequence, list, range]
+
+
+def info(ds: Sequence, indicators: IND_TYPES) -> pd.DataFrame:
     """
     Get basic summary statistics.
 
@@ -27,27 +29,34 @@ def info(ds: Sequence,
 
     # Calculate frequency using pandas value_counts()
     freq_counts = pd.value_counts(ds)
-    freq_counts.name = 'frequency'
+    freq_counts.name = "frequency"
     freq_counts_df = pd.DataFrame(freq_counts)
-    freq_counts_df.index.name = 'indicator'
+    freq_counts_df.index.name = "indicator"
 
     # Calculate ratio
     total_responses = len(ds)
-    freq_counts_df['ratio'] = (freq_counts_df['frequency'] / total_responses) * 100
+    counts_to_total = freq_counts_df["frequency"] / total_responses
+    freq_counts_df["ratio"] = counts_to_total * 100
 
     # Add all indicators
-    summary_df = pd.DataFrame(index=indicators, columns=['frequency', 'ratio'])
-    summary_df.index.name = 'indicator'
+    summary_df = pd.DataFrame(
+        index=indicators,
+        columns=["frequency", "ratio"]
+    )
+    summary_df.index.name = "indicator"
 
-    # Merge the frequency and percent DataFrames to include 0 counts for missing indicators
+    # Merge the frequency and percent DataFrames
+    # to include 0 counts for missing indicators
     summary_df.update(freq_counts_df, join="left")
     summary_df.fillna(0, inplace=True)
 
     # Calculate cumulative percent
-    summary_df['cumulative'] = summary_df['ratio'].cumsum()
+    summary_df["cumulative"] = summary_df["ratio"].cumsum()
 
     # Set the last cumulative value to 100
-    summary_df.loc[summary_df['cumulative'] > 100, 'cumulative'] = 100
+    summary_df.loc[
+        summary_df["cumulative"] > 100, "cumulative"
+    ] = 100
 
     # Create the final DataFrame
     return summary_df
