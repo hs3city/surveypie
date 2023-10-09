@@ -19,10 +19,10 @@ def get_apouey_index(categories: int, responses: typing.List[int]) -> float:
             "Category out of range. Please use category within range 3-10."
         )
     resp_cumulative_proportions = _get_cumulative_proportions(
-        _get_resp_proportions(categories, responses)
+        _get_proportions(categories, responses)
     )
     sum_fc_alpha = 0
-    for category in range(1, categories + 1):
+    for category in range(1, categories - 1):
         fc = resp_cumulative_proportions[category]
         sum_fc_alpha += abs(fc - 0.5) ** ALPHA_LOOKUP_TABLE[categories]
 
@@ -32,7 +32,7 @@ def get_apouey_index(categories: int, responses: typing.List[int]) -> float:
     return round(result, 2)
 
 
-def _get_resp_proportions(categories: int, responses: typing.List[int]) -> dict:
+def _get_proportions(categories: int, responses: typing.List[int]) -> dict:
     proportions_dict = {}
     responses_num = len(responses)
     for category in range(1, categories + 1):
