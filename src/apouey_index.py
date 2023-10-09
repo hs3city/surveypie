@@ -26,7 +26,9 @@ def get_apouey_index(categories: int, responses: typing.List[int]) -> float:
         fc = resp_cumulative_proportions[category]
         sum_fc_alpha += abs(fc - 0.5) ** ALPHA_LOOKUP_TABLE[categories]
 
-    result = 1 - ((2 ** ALPHA_LOOKUP_TABLE[categories]) / (categories - 1)) * sum_fc_alpha
+    result = 1 - (
+            (2 ** ALPHA_LOOKUP_TABLE[categories]) / (categories - 1)
+    ) * sum_fc_alpha
     return round(result, 2)
 
 
@@ -34,7 +36,8 @@ def _get_resp_proportions(categories: int, responses: typing.List[int]) -> dict:
     proportions_dict = {}
     responses_num = len(responses)
     for category in range(1, categories + 1):
-        proportions_dict[category] = round(responses.count(category) / responses_num, 2)
+        proportions_dict[category] = round(
+            responses.count(category) / responses_num, 2)
 
     return proportions_dict
 
@@ -45,5 +48,6 @@ def _get_cumulative_proportions(proportions_dict: dict) -> dict:
     for key, value in proportions_dict.items():
         if key == 3:
             cumulative_proportions_dict[key] = value
-        cumulative_proportions_dict[key] = round(sum(proportions_list[:key]), 2)
+        cumulative_proportions_dict[key] = round(
+            sum(proportions_list[:key]), 2)
     return cumulative_proportions_dict
