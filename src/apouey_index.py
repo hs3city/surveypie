@@ -32,19 +32,3 @@ def get_apouey_index(categories: IND_TYPES, responses: Sequence) -> float:
 
     apouey_index = 1 - (2**alpha) / (len(categories) - 1) * sum_fc_alpha
     return apouey_index
-
-
-if __name__ == "__main__":
-    INDICATORS = [1, 2, 3, 4, 5]
-
-    DS = []
-    DS.extend(10 * [1])
-    DS.extend(10 * [2])
-    DS.extend(10 * [3])
-    DS.extend(5 * [4])
-    DS.extend(15 * [5])
-    RESULT = info(DS, INDICATORS)
-
-    print(RESULT)
-
-    print(get_apouey_index(INDICATORS, DS))
