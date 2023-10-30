@@ -19,4 +19,6 @@ class ApoueyTestCase(unittest.TestCase):
     def test_apouey_negative(self):
         with self.assertRaises(AttributeError):
             get_apouey_index(categories=[1], responses=DS)
-            get_apouey_index(categories=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], responses=DS)
+            get_apouey_index(
+                categories=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], responses=DS
+            )
