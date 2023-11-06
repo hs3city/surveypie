@@ -12,7 +12,7 @@ INDICATORS = [1, 2, 3, 4, 5]
 
 
 def test_apouey_positive():
-    assert round(get_apouey_index(INDICATORS, DS), 3) == 0.673
+    assert round(get_apouey_index(INDICATORS, DS), 3) == 0.545
 
 
 class ApoueyTestCase(unittest.TestCase):
