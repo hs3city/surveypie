@@ -15,7 +15,7 @@ ALPHA_LOOKUP_TABLE = {
 
 
 def get_apouey_index(categories: IND_TYPES, responses: Sequence) -> float:
-    number_of_categories = len(categories)
+    number_of_categories = categories[-1]
     if number_of_categories < 3 or number_of_categories > 10:
         raise ValueError(
             "Category out of range. Please use category within range 3-10."
@@ -26,9 +26,9 @@ def get_apouey_index(categories: IND_TYPES, responses: Sequence) -> float:
 
     sum_fc_alpha = 0
 
-    for category in range(1, categories[-1]):
+    for category in range(1, number_of_categories):
         fc = proportions_info["cumulative"][category] / 100
         sum_fc_alpha += abs(fc - 0.5) ** alpha
 
-    apouey_index = 1 - (2**alpha) / (len(categories) - 1) * sum_fc_alpha
+    apouey_index = 1 - (2**alpha) / categories[-2] * sum_fc_alpha
     return apouey_index
