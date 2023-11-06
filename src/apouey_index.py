@@ -30,5 +30,5 @@ def get_apouey_index(categories: IND_TYPES, responses: Sequence) -> float:
         fc = proportions_info["cumulative"][category] / 100
         sum_fc_alpha += abs(fc - 0.5) ** alpha
 
-    apouey_index = 1 - (2 ** alpha) / (len(categories) - 1) * sum_fc_alpha
+    apouey_index = 1 - (2**alpha) / (len(categories) - 1) * sum_fc_alpha
     return apouey_index
