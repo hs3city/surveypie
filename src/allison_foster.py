@@ -11,7 +11,7 @@ Contributors:
   - Szymon Moliński (@SimonMolinsky)
 
 Tutorials:
-  -
+  - ``allison-foster-index``
 """
 from numpy.typing import ArrayLike
 from src.index_model import BaseIndex
@@ -36,9 +36,10 @@ class AllisonFosterIndex(BaseIndex):
     u_l : float
         The mean of the values below (L) group median value.
     """
+
     u_h: float
     u_l: float
-    name: str = 'Allison-Foster Index'
+    name: str = "Allison-Foster Index"
 
 
 def af_index(data: ArrayLike) -> AllisonFosterIndex:
@@ -74,8 +75,4 @@ def af_index(data: ArrayLike) -> AllisonFosterIndex:
     mean_l = float(numpy.mean(values_below_median))
     allison_foster_index = mean_h - mean_l
 
-    return AllisonFosterIndex(
-        index=allison_foster_index,
-        u_h=mean_h,
-        u_l=mean_l
-    )
+    return AllisonFosterIndex(index=allison_foster_index, u_h=mean_h, u_l=mean_l)
