@@ -26,7 +26,7 @@ def info(ds: Sequence, indicators: IND_TYPES) -> pd.DataFrame:
     """
 
     # Calculate frequency using pandas value_counts()
-    freq_counts = pd.value_counts(ds)
+    freq_counts = pd.Series(ds).value_counts()
     freq_counts.name = "frequency"
     freq_counts_df = pd.DataFrame(freq_counts)
     freq_counts_df.index.name = "indicator"
