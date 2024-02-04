@@ -1,3 +1,15 @@
+"""
+Allison-Foster Index implementation.
+
+Author: Marta Leszczyńska (@Reckony)
+
+Version: 1.1
+
+Last Revision: 2024-02-03
+
+Contributors:
+  - Szymon Moliński (@SimonMolinsky)
+"""
 import typing
 from dataclasses import dataclass
 
@@ -7,18 +19,25 @@ import numpy
 @dataclass
 class AllisonFosterIndex:
     """
-    Class representation of measures for Allison-Foster index
-    index:  Allison-Foster index
-    u_h: mean of the values above (H) group median value
-    u_l: mean of the values below (L) group median value
-    """
+    Allison-Foster Index metadata
 
+    Attributes
+    ----------
+    index : float
+        Allison-Foster index.
+
+    u_h : float
+        The mean of the values above (H) group median value.
+
+    u_l : float
+        The mean of the values below (L) group median value.
+    """
     index: float
     u_h: float
     u_l: float
 
 
-def compute_measures(data: typing.Iterable) -> AllisonFosterIndex:
+def af_index(data: typing.Iterable) -> AllisonFosterIndex:
     """
     Function for computation Allison-Foster index and mean of the values
     above (H) group median value,
