@@ -75,4 +75,6 @@ def af_index(data: ArrayLike) -> AllisonFosterIndex:
     mean_l = float(numpy.mean(values_below_median))
     allison_foster_index = mean_h - mean_l
 
-    return AllisonFosterIndex(index=allison_foster_index, u_h=mean_h, u_l=mean_l)
+    return AllisonFosterIndex(
+        index=allison_foster_index, u_h=mean_h, u_l=mean_l
+    )
