@@ -1,8 +1,10 @@
-from typing import Sequence, Union
+from typing import Sequence, Union, Iterable
 
 from numpy import ndarray
 import pandas as pd
 
+# import functions:
+from general import summary
 
 IND_TYPES = Union[ndarray, Sequence, list, range]
 
@@ -53,3 +55,22 @@ def info(ds: Sequence, indicators: IND_TYPES) -> pd.DataFrame:
 
     # Create the final DataFrame
     return summary_df
+
+
+class OrdinalScale:
+    def __init__(self, levels : list, orders = None, statistics = None, distribution = None):
+        self.levels = levels
+        if orders == None:
+            self.orders = list(range(1, len(levels + 1))) # will give orders as a list from 1 - len(levels)
+        else:
+            self.orders = orders
+
+        # Set functions to be set by class methods as None as of now:
+        self.statistics = None
+        self.distribution = None
+
+    def set_statistics(self, data: Iterable, percentiles_list=None):
+        self.statistics = summary(data, percentiles_list)
+
+    def set_distribution(self, ds: Sequence, indicators: IND_TYPES):
+        self.distribution = info(ds, indicators)
