@@ -1,13 +1,10 @@
-from typing import Sequence, Union
+from typing import Sequence
 
-from numpy import ndarray
 import pandas as pd
+from numpy.typing import ArrayLike
 
 
-IND_TYPES = Union[ndarray, Sequence, list, range]
-
-
-def info(ds: Sequence, indicators: IND_TYPES) -> pd.DataFrame:
+def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
     """
     Get basic summary statistics about ordinal dataset.
 
@@ -53,3 +50,18 @@ def info(ds: Sequence, indicators: IND_TYPES) -> pd.DataFrame:
 
     # Create the final DataFrame
     return summary_df
+
+
+def summary(data: ArrayLike, percentiles=None) -> pd.DataFrame:
+    """
+    Calculates summary statistics of observed levels
+    :param percentiles: the percentiles to include in the output,
+    should fall between 0 and 1
+    :param data: list-like or array-like object with numerical data
+    :return: pandas DataFrame with statistics
+    """
+    if percentiles is None:
+        percentiles = [0.25, 0.5, 0.75]
+    df = pd.DataFrame(data).describe(percentiles=percentiles)
+    df.columns = ["summary"]
+    return df

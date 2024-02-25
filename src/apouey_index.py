@@ -1,6 +1,7 @@
 import numpy as np
 from typing import Sequence
-from src.core import info, IND_TYPES
+from src.core import info
+from numpy.typing import ArrayLike
 
 ALPHA_LOOKUP_TABLE = {
     3: round(np.log(2) / np.log(3), 2),
@@ -14,7 +15,7 @@ ALPHA_LOOKUP_TABLE = {
 }
 
 
-def get_apouey_index(categories: IND_TYPES, responses: Sequence) -> float:
+def get_apouey_index(categories: ArrayLike, responses: Sequence) -> float:
     number_of_categories = categories[-1]
     if number_of_categories < 3 or number_of_categories > 10:
         raise ValueError(
