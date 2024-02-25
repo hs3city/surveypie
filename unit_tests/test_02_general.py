@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.general import summary
+from src.core import summary
 
 
 def test_on_example():

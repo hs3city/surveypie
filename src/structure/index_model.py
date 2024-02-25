@@ -8,4 +8,4 @@ class BaseIndex(BaseModel):
 
     index: float
     name: str
-    n_classes: Optional[int]
+    n_classes: Optional[int] = None
