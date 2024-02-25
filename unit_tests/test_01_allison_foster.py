@@ -1,6 +1,5 @@
 import random
 
-from src import allison_foster
 from src.allison_foster import af_index, AllisonFosterIndex
 
 
