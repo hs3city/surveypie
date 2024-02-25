@@ -43,19 +43,19 @@ class AbulNagaYalcinIndex(BaseIndex):
     beta: float
     name: str = "Abul Naga & Yalcin Index"
 
-    @field_validator('alpha', 'beta')
+    @field_validator("alpha", "beta")
     @classmethod
     def greater_or_equal_one(cls, v: float) -> float:
         if v < 1:
-            raise ValueError('Parameters "alpha" and "beta" must be greater'
-                             'or equal to 1')
+            raise ValueError(
+                'Parameters "alpha" and "beta" must be greater' "or equal to 1"
+            )
         return v
 
 
-def any_index(categories: ArrayLike,
-              responses: ArrayLike,
-              alpha=1.,
-              beta=1.) -> AbulNagaYalcinIndex:
+def any_index(
+    categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0
+) -> AbulNagaYalcinIndex:
     """
     Function for computation Abul Naga & Yalcin index.
 
@@ -109,31 +109,24 @@ def any_index(categories: ArrayLike,
     exp_alpha = 0.5**alpha
     exp_beta = 0.5**beta
 
-    k_a_b = (m - 1) * exp_alpha - (
-            1 - (n_categories - m) * exp_beta
-    )
+    k_a_b = (m - 1) * exp_alpha - (1 - (n_categories - m) * exp_beta)
 
-    ds = info(
-        ds=responses, indicators=categories
-    )
+    ds = info(ds=responses, indicators=categories)
 
-    ds = ds['cumulative']
+    ds = ds["cumulative"]
     p_alpha = ds[ds.index < m] / 100
     p_beta = ds[ds.index >= m] / 100
 
     # below median
-    p_alpha_alpha = p_alpha ** alpha
+    p_alpha_alpha = p_alpha**alpha
     p_a = np.sum(p_alpha_alpha)
 
     # above and equal to median
-    p_beta_beta = p_beta ** beta
+    p_beta_beta = p_beta**beta
     p_b = np.sum(p_beta_beta)
 
     index = (p_a - p_b + c) / (k_a_b + c)
 
     return AbulNagaYalcinIndex(
-        index=index,
-        alpha=alpha,
-        beta=beta,
-        n_classes=n_categories
+        index=index, alpha=alpha, beta=beta, n_classes=n_categories
     )

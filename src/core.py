@@ -34,8 +34,7 @@ def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
     freq_counts_df["ratio"] = counts_to_total * 100
 
     # Add all indicators
-    summary_df = pd.DataFrame(index=indicators,
-                              columns=["frequency", "ratio"])
+    summary_df = pd.DataFrame(index=indicators, columns=["frequency", "ratio"])
     summary_df.index.name = "indicator"
 
     # Merge the frequency and percent DataFrames

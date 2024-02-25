@@ -8,10 +8,7 @@ from src.abul_naga_yalcin_index import any_index, AbulNagaYalcinIndex
 def test_random():
     categories = list(range(1, 10))
     example_data = random.choices(categories, k=500)
-    result = any_index(
-        categories=categories,
-        responses=example_data
-    )
+    result = any_index(categories=categories, responses=example_data)
 
     assert isinstance(result, AbulNagaYalcinIndex)
     assert isinstance(result.index, float)
@@ -33,20 +30,11 @@ def test_lowest_vs_highest():
         middle = [1, 1, 1, 2, 2, 2, 3, 3, 3, 3]
         highest = [1, 1, 1, 1, 1, 3, 3, 3, 3, 3]
 
-        res_low = any_index(
-            categories=categories,
-            responses=lowest
-        )
+        res_low = any_index(categories=categories, responses=lowest)
 
-        res_mid = any_index(
-            categories=categories,
-            responses=middle
-        )
+        res_mid = any_index(categories=categories, responses=middle)
 
-        res_high = any_index(
-            categories=categories,
-            responses=highest
-        )
+        res_high = any_index(categories=categories, responses=highest)
 
         assert res_low.index < res_mid.index
         assert res_mid.index < res_high.index
@@ -73,14 +61,14 @@ def test_weighted_alpha_and_beta():
         categories=categories,
         responses=responses,
         alpha=low_param,
-        beta=high_param
+        beta=high_param,
     )
 
     res_above_more_important = any_index(
         categories=categories,
         responses=responses,
         alpha=high_param,
-        beta=low_param
+        beta=low_param,
     )
 
     assert res_below_more_important.index != res_above_more_important.index
@@ -98,7 +86,7 @@ def test_not_greater_than_1():
                 categories=categories,
                 responses=example_data,
                 alpha=param_a,
-                beta=param_b
+                beta=param_b,
             )
 
             assert result.index <= 1
