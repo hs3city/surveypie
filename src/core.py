@@ -1,7 +1,6 @@
-from typing import Sequence
-
 import pandas as pd
 from numpy.typing import ArrayLike
+from typing import Sequence
 
 
 def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
@@ -43,7 +42,7 @@ def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
     summary_df.fillna(0, inplace=True)
 
     # Calculate cumulative percent
-    summary_df["cumulative"] = summary_df["ratio %"].cumsum()/100
+    summary_df["cumulative"] = summary_df["ratio %"].cumsum() / 100
 
     # Set the last cumulative value to 100
     summary_df.loc[summary_df["cumulative"] > 1, "cumulative"] = 1
