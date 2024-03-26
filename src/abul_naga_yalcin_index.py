@@ -114,8 +114,8 @@ def any_index(
     ds = info(ds=responses, indicators=categories)
 
     ds = ds["cumulative"]
-    p_alpha = ds[ds.index < m] / 100
-    p_beta = ds[ds.index >= m] / 100
+    p_alpha = ds[ds.index < m]
+    p_beta = ds[ds.index >= m]
 
     # below median
     p_alpha_alpha = p_alpha**alpha
