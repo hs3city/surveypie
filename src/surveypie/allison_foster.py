@@ -14,7 +14,7 @@ Tutorials:
   - ``allison-foster-index``
 """
 from numpy.typing import ArrayLike
-from src.structure.index_model import BaseIndex
+from surveypie.structure.index_model import BaseIndex
 
 import numpy
 

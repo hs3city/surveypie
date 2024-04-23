@@ -1,6 +1,6 @@
 import numpy as np
 from typing import Sequence
-from src.core import info
+from surveypie.core import info
 from numpy.typing import ArrayLike
 
 ALPHA_LOOKUP_TABLE = {

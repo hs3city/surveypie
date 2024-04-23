@@ -17,8 +17,8 @@ import numpy as np
 from numpy.typing import ArrayLike
 from pydantic import field_validator
 
-from src.core import info
-from src.structure.index_model import BaseIndex
+from surveypie.core import info
+from surveypie.structure.index_model import BaseIndex
 
 
 class AbulNagaYalcinIndex(BaseIndex):

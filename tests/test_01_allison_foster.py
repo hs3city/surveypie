@@ -1,6 +1,6 @@
 import random
 
-from src.allison_foster import af_index, AllisonFosterIndex
+from surveypie.allison_foster import af_index, AllisonFosterIndex
 
 
 def test_measures_calculation():
