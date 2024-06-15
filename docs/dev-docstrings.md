@@ -105,7 +105,56 @@ def do_something(a: float, b, c_opt=None) -> int:
 
 ##### Example
 
-TODO: pick something from the project.
+```python
+def any_index(
+    categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0
+) -> AbulNagaYalcinIndex:
+    """
+    Abul Naga & Yalcin index.
+
+    Parameters
+    ----------
+    categories : array
+        Ordered list of possible categories.
+
+    responses : array
+        Dataset with ordinal-scale values used for index computation.
+
+    alpha : float, default = 1
+        Parameter used for index weighting. Must be greater or equal to 1.
+        See Notes to learn more about this parameter.
+
+    beta : float, default = 1
+        Parameter used for index weighting. Must be greater or equal to 1.
+        See Notes to learn more about this parameter.
+
+    Returns
+    -------
+    index : AbulNagaYalcinIndex
+
+    Notes
+    -----
+    With ``alpha`` == ``beta`` inequality is at a minimum when everyone is in
+    the same category, and at a maximum when half of the population lies in
+    the lowest category and half in the highest category.
+    Different calibrations of the parameters and allow the researcher to
+    give different weights to inequalities above and below the median of
+    the responsiveness distribution -
+    for higher values of ``alpha`` (``beta``), less weight is given to
+    inequalities below (above) the median.
+
+    References
+    ----------
+    [1] Abul Naga RH, Yalcin T. Inequality measurement for ordered response
+    health data. J Health Econ. 2008 Dec;27(6):1614-25.
+    doi: 10.1016/j.jhealeco.2008.07.015. Epub 2008 Aug 19. PMID: 18838185.
+
+    [2] Andrew M. Jones, Nigel Rice, Silvana Robone, Pedro Rosa Dias.
+    Inequality and Polarisation in Health Systems’ Responsiveness:
+    A Cross- Country Analysis. HEDG Working Paper 10/27, October 2010.
+    URL: https://www.york.ac.uk/media/economics/documents/herc/wp/10_27.pdf
+    """
+```
 
 #### Class
 
@@ -181,10 +230,6 @@ class MyClass:
 
 ```
 
-##### Example
-
-TODO: pick something from the project.
-
 #### Modules
 
 **Important!**
@@ -244,10 +289,6 @@ TODO
 
 """
 ```
-
-##### Example
-
-TODO :)
 
 ## Resources
 
