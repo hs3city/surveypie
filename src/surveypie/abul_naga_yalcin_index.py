@@ -43,8 +43,8 @@ class AbulNagaYalcinIndex(BaseIndex):
     beta: float
     name: str = "Abul Naga & Yalcin Index"
 
-    @field_validator("alpha", "beta")
     @classmethod
+    @field_validator("alpha", "beta")
     def greater_or_equal_one(cls, v: float) -> float:
         if v < 1:
             raise ValueError(
