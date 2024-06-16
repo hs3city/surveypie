@@ -1,6 +1,6 @@
 import pandas as pd
 
-from src.core import summary
+from surveypie.core import summary
 
 
 def test_on_example():

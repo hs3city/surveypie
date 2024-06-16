@@ -13,12 +13,13 @@ Contributors:
 Tutorials:
   -
 """
+
 import numpy as np
 from numpy.typing import ArrayLike
 from pydantic import field_validator
 
-from src.core import info
-from src.structure.index_model import BaseIndex
+from surveypie.core import info
+from surveypie.structure.index_model import BaseIndex
 
 
 class AbulNagaYalcinIndex(BaseIndex):
@@ -43,19 +44,15 @@ class AbulNagaYalcinIndex(BaseIndex):
     beta: float
     name: str = "Abul Naga & Yalcin Index"
 
-    @field_validator("alpha", "beta")
     @classmethod
+    @field_validator("alpha", "beta")
     def greater_or_equal_one(cls, v: float) -> float:
         if v < 1:
-            raise ValueError(
-                'Parameters "alpha" and "beta" must be greater' "or equal to 1"
-            )
+            raise ValueError('Parameters "alpha" and "beta" must be greater' "or equal to 1")
         return v
 
 
-def any_index(
-    categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0
-) -> AbulNagaYalcinIndex:
+def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) -> AbulNagaYalcinIndex:
     """
     Abul Naga & Yalcin index.
 
@@ -114,8 +111,8 @@ def any_index(
     ds = info(ds=responses, indicators=categories)
 
     ds = ds["cumulative"]
-    p_alpha = ds[ds.index < m] / 100
-    p_beta = ds[ds.index >= m] / 100
+    p_alpha = ds[ds.index < m]
+    p_beta = ds[ds.index >= m]
 
     # below median
     p_alpha_alpha = p_alpha**alpha
@@ -127,6 +124,4 @@ def any_index(
 
     index = (p_a - p_b + c) / (k_a_b + c)
 
-    return AbulNagaYalcinIndex(
-        index=index, alpha=alpha, beta=beta, n_classes=n_categories
-    )
+    return AbulNagaYalcinIndex(index=index, alpha=alpha, beta=beta, n_classes=n_categories)

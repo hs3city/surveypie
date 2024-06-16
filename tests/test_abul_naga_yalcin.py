@@ -2,7 +2,7 @@ import random
 
 import numpy as np
 
-from src.abul_naga_yalcin_index import any_index, AbulNagaYalcinIndex
+from surveypie.abul_naga_yalcin_index import any_index, AbulNagaYalcinIndex
 
 
 def test_random():

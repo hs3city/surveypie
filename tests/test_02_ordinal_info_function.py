@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from src.core import info
+from surveypie.core import info
 
 
 INDICATORS = ["not satisfied", "ok", "excellent", "test"]
@@ -23,12 +23,12 @@ def test_index_ordering():
 
 
 def test_columns():
-    expected_columns = {"frequency", "ratio", "cumulative"}
+    expected_columns = {"frequency", "ratio %", "cumulative"}
     assert expected_columns == set(RESULT.columns)
 
 
 def test_ratio():
-    ratios = RESULT["ratio"].values
+    ratios = RESULT["ratio %"].values
     print(RESULT)
     assert np.alltrue(ratios >= 0)
     assert np.alltrue(ratios <= 100)
@@ -39,7 +39,7 @@ def test_cumulative():
     previous_val = 0
     for x in cumsum:
         assert x >= 0
-        assert x <= 100
+        assert x <= 1
         assert x >= previous_val
         previous_val = x
 
