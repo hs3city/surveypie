@@ -54,7 +54,7 @@ class AbulNagaYalcinIndex(BaseIndex):
 
 def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) -> AbulNagaYalcinIndex:
     """
-    Function for computation Abul Naga & Yalcin index.
+    Abul Naga & Yalcin index.
 
     Parameters
     ----------

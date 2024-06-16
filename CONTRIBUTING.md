@@ -34,7 +34,7 @@ The package lives as long as contributors are willing to maintain it, so we are 
 ### Developing new features
 **Caution!** If you are not willing to write tests and docstrings for a feature, it will not be accepted by the maintainers.
 - Ideally, ask first if you want to introduce a new feature. Then, you will get additional guidance from the package maintainers, and you will not produce something that might burden other maintainers in the future.
-- Every new feature must be well-documented. See [Documenting Features] section in the Developer's Guide.
+- Every new feature must be well-documented. See [Docstrings](docs/dev-docstrings.md) section in the Developer's Guide.
 - Every new feature must have at least one unit or functional test written. See [Writing Tests] section in the Developer's Guide.
 - Features derived from scientific literature must be cited in a docstring's `Bibliography` section. See [Citing Others] section in the Developer's Guide.
 - *Optional* - write a tutorial about the new feature in a notebook.
