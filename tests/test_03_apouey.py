@@ -1,4 +1,4 @@
-from src.apouey_index import get_apouey_index
+from surveypie.apouey_index import get_apouey_index
 import unittest
 
 DS = []

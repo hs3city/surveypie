@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-from src.core import info
+from surveypie.core import info
 
 
 INDICATORS = ["not satisfied", "ok", "excellent", "test"]
