@@ -13,6 +13,7 @@ Contributors:
 Tutorials:
   - ``allison-foster-index``
 """
+
 from numpy.typing import ArrayLike
 from surveypie.structure.index_model import BaseIndex
 
