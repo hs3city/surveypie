@@ -18,9 +18,7 @@ ALPHA_LOOKUP_TABLE = {
 def get_apouey_index(categories: ArrayLike, responses: Sequence) -> float:
     number_of_categories = categories[-1]
     if number_of_categories < 3 or number_of_categories > 10:
-        raise ValueError(
-            "Category out of range. Please use category within range 3-10."
-        )
+        raise ValueError("Category out of range. Please use category within range 3-10.")
 
     alpha = ALPHA_LOOKUP_TABLE[number_of_categories]
     proportions_info = info(responses, categories)

@@ -65,16 +65,10 @@ def af_index(data: ArrayLike) -> AllisonFosterIndex:
     """
     median_value = numpy.median(data)
     values_above_median = [value for value in data if value > median_value]
-    values_below_median = [
-        value
-        for value in data
-        if value not in values_above_median and value != median_value
-    ]
+    values_below_median = [value for value in data if value not in values_above_median and value != median_value]
 
     mean_h = float(numpy.mean(values_above_median))
     mean_l = float(numpy.mean(values_below_median))
     allison_foster_index = mean_h - mean_l
 
-    return AllisonFosterIndex(
-        index=allison_foster_index, u_h=mean_h, u_l=mean_l
-    )
+    return AllisonFosterIndex(index=allison_foster_index, u_h=mean_h, u_l=mean_l)
