@@ -44,4 +44,14 @@ With `ordinal-scale-stats`, you can:
 
 ## Citation
 
-
+```
+@software{surveypie_2024,
+author = {Moliński, Szymon and Jonatowska, Marta and Grabowski, Filip},
+license = {MIT},
+month = apr,
+title = {{surveypie}},
+url = {https://github.com/hs3city/surveypie},
+version = {0.0.1},
+year = {2024}
+}
+```
