@@ -1,0 +1,30 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: surveypie
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Szymon
+    family-names: Moliński
+    email: simon@dataverselabs.com
+    orcid: 'https://orcid.org/0000-0003-3525-2104'
+  - given-names: Marta
+    family-names: Jonatowska
+  - given-names: Filip
+    family-names: Grabowski
+repository-code: 'https://github.com/hs3city/surveypie'
+abstract: Python package for ordinal scale statistics
+keywords:
+  - python
+  - ordinal scale statistics
+  - statistics
+  - data science
+  - survey
+  - social science
+license: MIT
+version: 0.0.1
+date-released: '2024-04-23'
