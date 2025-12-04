@@ -40,6 +40,8 @@ With `ordinal-scale-stats`, you can:
 
 ## Tests and Contribution
 
+### Running tests
+
 ## Community
 
 ## Citation
