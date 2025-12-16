@@ -40,7 +40,27 @@ With `ordinal-scale-stats`, you can:
 
 ## Tests and Contribution
 
+**Critical**: 
+- First - CREATE YOUR OWN FORK OF THE REPOSITORY.
+- Second - PULL REQUESTS ARE ALWAYS PUSHED INTO `dev` BRANCH OF THE MAIN REPOSITORY.
+
+
+### Project setup
+
+1. Install poetry in your system: https://python-poetry.org/docs/
+2. Type `poetry install` in the package repository. You should see the new environment where you can work on your scripts. Or you can create virtualenv using pip or conda BEFORE runnig command `poetry install`, activate your environment and then run `poetry install`.
+3. Install optional (`dev`) dependencies `poetry install --extras dev`
+
 ### Running tests
+
+1. First, format and lint the code: `poetry run black`, `poetry run flake8`.
+2. When you create new functions and classes always write and run unit tests in `tests` directory, even if your code does not face users. 
+3. When you debug functions, or enhance codebase always run tests when your work is done `poetry run pytest tests/`.
+4. All tests are passing? Great, it's time for Pull (Merge) Request.
+
+### Pushing changes to repo
+
+1. Create your own 
 
 ## Community
 
