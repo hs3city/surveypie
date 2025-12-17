@@ -42,8 +42,7 @@ With `ordinal-scale-stats`, you can:
 
 **Critical**: 
 - First - CREATE YOUR OWN FORK OF THE REPOSITORY.
-- Second - PULL REQUESTS ARE ALWAYS PUSHED INTO `dev` BRANCH OF THE MAIN REPOSITORY.
-
+- Second - PULL REQUESTS ARE ALWAYS PUSHED INTO `dev` BRANCH OF THE MAIN REPOSITORY. But don't worry, even if you push it directly to `main` branch then repository admin will switch branches.
 
 ### Project setup
 
@@ -51,16 +50,23 @@ With `ordinal-scale-stats`, you can:
 2. Type `poetry install` in the package repository. You should see the new environment where you can work on your scripts. Or you can create virtualenv using pip or conda BEFORE runnig command `poetry install`, activate your environment and then run `poetry install`.
 3. Install optional (`dev`) dependencies `poetry install --extras dev`
 
+### Code
+
+1. Use `black` and `flake8` to format and lint code, follow `PEP 8`, and write docstrings. Remember about type annotations.
+2. Line length in our repository is set to 120 characters (PEP8 has 79 characters, but in our opinion it makes docstrings messy).
+
 ### Running tests
 
-1. First, format and lint the code: `poetry run black`, `poetry run flake8`.
+1. First, format and lint the code (in the `src` directory): `poetry run black src`, `poetry run flake8 src`.
 2. When you create new functions and classes always write and run unit tests in `tests` directory, even if your code does not face users. 
-3. When you debug functions, or enhance codebase always run tests when your work is done `poetry run pytest tests/`.
+3. When you debug functions, or enhance codebase always run tests when your work is done `poetry run pytest`.
 4. All tests are passing? Great, it's time for Pull (Merge) Request.
 
 ### Pushing changes to repo
 
-1. Create your own 
+1. Push changes into your fork.
+2. From your fork push changes into the `dev` branch. Wait till all tests are done, and then for the review. At this step some linting/code formatting/unit tests might go wrong. In this case, review doesn't start until all tests and code checks are valid, so you need to work a little bit longer with your code, and do commit with the new changes.
+3. Reviewers may ask you to work on something, probably docstrings to user-facing functions or unit tests.
 
 ## Community
 
