@@ -5,15 +5,15 @@ on:
     types: [opened, reopened, synchronize]
 
 env:
-  PYTHON_VERSION: 3.11
-  POETRY_VERSION: 1.5.1
+  PYTHON_VERSION: 3.12
+  POETRY_VERSION: 2.2.1
 
 jobs:
   black:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Poetry
         run: pipx install poetry==${{ env.POETRY_VERSION }}
       - uses: actions/setup-python@v4
@@ -22,13 +22,15 @@ jobs:
           cache: 'poetry'
       - name: Install poetry dependencies
         run: poetry install
+      - name: Install dev dependencies
+        run: poetry install --extras dev
       - name: Run black through poetry
         run: poetry run black src --check
   flake8:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Poetry
         run: pipx install poetry==${{ env.POETRY_VERSION }}
       - uses: actions/setup-python@v4
@@ -37,6 +39,8 @@ jobs:
           cache: 'poetry'
       - name: Install poetry dependencies
         run: poetry install
+      - name: Install dev dependencies
+        run: poetry install --extras dev
       - name: Run flake8 through poetry
         run: poetry run flake8
   pytest:
@@ -45,7 +49,7 @@ jobs:
     timeout-minutes: 6
     needs: [black,flake8]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Poetry
         run: pipx install poetry==${{ env.POETRY_VERSION }}
       - uses: actions/setup-python@v4
@@ -54,5 +58,7 @@ jobs:
           cache: 'poetry'
       - name: Install dependencies
         run: poetry install
+      - name: Install dev dependencies
+        run: poetry install --extras dev
       - name: Run pytest through poetry
         run: poetry run pytest
