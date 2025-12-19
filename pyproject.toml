@@ -1,8 +1,9 @@
-[tool.poetry]
+[project]
 name = "surveypie"
-version = "0.0.1"
+version = "0.0.2"
 description = "Polarization indices in Python"
-authors = ["HackerSpace Trójmiasto"]
+requires-python = ">=3.11"
+authors = [{ name = "HackerSpace Trójmiasto", email = "simon@dataverselabs.com" }]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "surveypie", from = "src"}]
@@ -12,25 +13,29 @@ classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering",
     "Topic :: Sociology"
 ]
+dependencies = [
+    "pandas>=2.3.3",
+    "numpy>=2.3.5",
+    "scipy>=1.16.2",
+    "pydantic>=2.12.5"
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-pandas = "^2.2.2"
-numpy = "^1.26.4"
-scipy = "^1.13.0"
-pydantic = "^2.7.1"
+[project.optional-dependencies]
+dev = [
+    "black>=25.12.0",
+    "flake8>=7.3.0",
+    "pytest>=9.0.2"
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^24.4.0"
-flake8 = "^7.0.0"
-pytest = "^8.1.1"
-
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 120
@@ -39,7 +44,3 @@ line-length = 120
 pythonpath = [
   "src"
 ]
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
