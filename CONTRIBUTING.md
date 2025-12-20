@@ -26,8 +26,8 @@ The package lives as long as contributors are willing to maintain it, so we are 
 ### Solving issues
 - Ask in the issue thread if you can solve it.
 - Package admin will create a branch for your work.
-- When you solve the issue, run all tests [How should I run tests?]. Create PR **only when all tests pass**. You might need to update the test suite after your corrections; if you need clarification, ask admins what to do in the issue thread.
-- Run `black` and `flake8` [How should I lint and validate my code?].
+- When you solve the issue, run all tests `poetry run pytest`. Create PR **only when all tests pass**. You might need to update the test suite after your corrections; if you need clarification, ask admins what to do in the issue thread.
+- Run `black` and `flake8` [How should I lint and validate my code?](docs/dev-code-linting-and-validation.md).
 - Push your PR to the `staging` branch.
 - Look into your PR's checks. There might be formatting problems. Solve those and commit changes. When all checks are green, we will be ready to go!
 
@@ -35,7 +35,7 @@ The package lives as long as contributors are willing to maintain it, so we are 
 **Caution!** If you are not willing to write tests and docstrings for a feature, it will not be accepted by the maintainers.
 - Ideally, ask first if you want to introduce a new feature. Then, you will get additional guidance from the package maintainers, and you will not produce something that might burden other maintainers in the future.
 - Every new feature must be well-documented. See [Docstrings](docs/dev-docstrings.md) section in the Developer's Guide.
-- Every new feature must have at least one unit or functional test written. See [Writing Tests] section in the Developer's Guide.
+- Every new feature must have at least one unit or functional test written. See [Writing Tests](docs/dev-tests.md) section in the Developer's Guide.
 - Features derived from scientific literature must be cited in a docstring's `Bibliography` section. See [Citing Others] section in the Developer's Guide.
 - *Optional* - write a tutorial about the new feature in a notebook.
 
