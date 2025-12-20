@@ -1,4 +1,4 @@
-# Ordinal-Scale-Stats-py
+# surveypie
 
 Python package that helps you analyze ordinal data.
 
@@ -20,8 +20,8 @@ Should the law protect your personal data?
 
 The order between categories makes analysis complex, and the fact that answers are polarized between opposing states. Moreover, a border between categories is subjective and depends on the person's experiences, feelings, and knowledge about a surveying topic.
 
-Classical measurements of central tendency do not fit well with ordinal data [ADD BIBLIOGRAPHY]. We encourage you to use the `ordinal-scale-stats` package to analyze survey responses.
-With `ordinal-scale-stats`, you can:
+Classical measurements of central tendency do not fit well with ordinal data [ADD BIBLIOGRAPHY]. We encourage you to use the `surveypie` package to analyze survey responses.
+With `surveypie`, you can:
 
 - visualize differences between surveyed groups,
 - measure polarization *within* a group,
