@@ -234,7 +234,7 @@ class MyClass:
 
 **Important!**
 
-A description of modules in **ordinal-scale-stats-py** is slightly different than the `numpy` style. We include module docstring at a top of the file that groups multiple functions and classes and has own specific logic.
+A description of modules in **surveypie** is slightly different than the `numpy` style. We include module docstring at a top of the file that groups multiple functions and classes and has own specific logic.
 
 Parts:
 
