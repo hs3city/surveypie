@@ -78,9 +78,9 @@ def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) 
 
     Notes
     -----
-    With ``alpha`` == ``beta`` inequality is at a minimum when everyone is in
-    the same category, and at a maximum when half of the population lies in
-    the lowest category and half in the highest category.
+    With ``alpha`` == ``beta`` inequality is at a minimum when every response
+    is in the same category, and at a maximum when half of the responses have
+    the lowest grades and other half highest grades.
     Different calibrations of the parameters and allow the researcher to
     give different weights to inequalities above and below the median of
     the responsiveness distribution -
@@ -98,6 +98,9 @@ def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) 
     A Cross- Country Analysis. HEDG Working Paper 10/27, October 2010.
     URL: https://www.york.ac.uk/media/economics/documents/herc/wp/10_27.pdf
     """
+
+    categories = np.array(categories)
+    categories = np.sort(categories)
 
     n_categories = len(categories)
     m = int(np.median(responses))
