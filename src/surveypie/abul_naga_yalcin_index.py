@@ -3,20 +3,22 @@ Abul Naga and Yalcin indexes implementation.
 
 Author: Szymon Moliński (@SimonMolinsky)
 
-Version: 1.0
+Version: 1.1
 
-Last Revision: 2024-02-25
+Last Revision: 2025-12-27
 
 Contributors:
-  -
+  - Szymon Moliński
 
 Tutorials:
-  -
+  - abul-naga-and-yalcin-index.ipynb
 """
-
-import numpy as np
 from numpy.typing import ArrayLike
 from pydantic import field_validator
+
+import numpy as np
+
+from math import isclose
 
 from surveypie.core import info
 from surveypie.structure.index_model import BaseIndex
@@ -48,11 +50,39 @@ class AbulNagaYalcinIndex(BaseIndex):
     @field_validator("alpha", "beta")
     def greater_or_equal_one(cls, v: float) -> float:
         if v < 1:
-            raise ValueError('Parameters "alpha" and "beta" must be greater' "or equal to 1")
+            raise ValueError(
+                'Parameters "alpha" and "beta" must be greater or equal to 1'
+            )
+        return v
+
+    @classmethod
+    @field_validator("index")
+    def greater_than_zero(cls, v: float) -> float:
+        if v < 0:
+            raise ValueError(
+                'Index must be greater than 0, check your input, and if it is '
+                'valid then report an issue!'
+            )
+        return v
+
+    @classmethod
+    @field_validator("index")
+    def less_or_equal_to_one(cls, v: float) -> float:
+        if v > 1:
+            # first, check if this is the rounding problem
+            is_close = isclose(v, 1)
+            if not is_close:
+                raise ValueError(
+                    'Index must be less or equal to 1, check your input,'
+                    ' and if it is valid then report an issue!'
+                )
         return v
 
 
-def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) -> AbulNagaYalcinIndex:
+def any_index(categories: ArrayLike,
+              responses: ArrayLike,
+              alpha=1.0,
+              beta=1.0) -> AbulNagaYalcinIndex:
     """
     Abul Naga & Yalcin index.
 
@@ -127,4 +157,7 @@ def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) 
 
     index = (p_a - p_b + c) / (k_a_b + c)
 
-    return AbulNagaYalcinIndex(index=index, alpha=alpha, beta=beta, n_classes=n_categories)
+    return AbulNagaYalcinIndex(index=index,
+                               alpha=alpha,
+                               beta=beta,
+                               n_classes=n_categories)

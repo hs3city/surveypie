@@ -2,6 +2,8 @@ import random
 
 import numpy as np
 
+from math import isclose
+
 from surveypie.abul_naga_yalcin_index import any_index, AbulNagaYalcinIndex
 
 
@@ -75,18 +77,28 @@ def test_weighted_alpha_and_beta():
 
 
 def test_not_greater_than_1():
-    categories = list(range(1, 4))
-    example_data = random.choices(categories, k=50)
+    categories_3 = [1, 2, 3]
+    categories_5 = list(range(1, 6))
+    categories_10 = list(range(1, 11))
+
+    example_data_3 = random.choices(categories_3, k=5000)
+    example_data_5 = random.choices(categories_5, k=5000)
+    example_data_10 = random.choices(categories_10, k=5000)
 
     parameters = [1, 2, 4, 100, 10**6]
 
-    for param_a in parameters:
-        for param_b in parameters:
-            result = any_index(
-                categories=categories,
-                responses=example_data,
-                alpha=param_a,
-                beta=param_b,
-            )
+    cats = [categories_3, categories_5, categories_10]
+    datasets = [example_data_3, example_data_5, example_data_10]
 
-            assert result.index <= 1
+    for idx in range(len(datasets)):
+        for param_a in parameters:
+            for param_b in parameters:
+                result = any_index(
+                    categories=cats[idx],
+                    responses=datasets[idx],
+                    alpha=param_a,
+                    beta=param_b,
+                )
+
+                if result.index > 1:
+                    assert isclose(result.index, 1)
