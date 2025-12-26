@@ -13,6 +13,7 @@ Contributors:
 Tutorials:
   - abul-naga-and-yalcin-index.ipynb
 """
+
 from numpy.typing import ArrayLike
 from pydantic import field_validator
 
@@ -50,9 +51,7 @@ class AbulNagaYalcinIndex(BaseIndex):
     @field_validator("alpha", "beta")
     def greater_or_equal_one(cls, v: float) -> float:
         if v < 1:
-            raise ValueError(
-                'Parameters "alpha" and "beta" must be greater or equal to 1'
-            )
+            raise ValueError('Parameters "alpha" and "beta" must be greater or equal to 1')
         return v
 
     @classmethod
@@ -60,8 +59,7 @@ class AbulNagaYalcinIndex(BaseIndex):
     def greater_than_zero(cls, v: float) -> float:
         if v < 0:
             raise ValueError(
-                'Index must be greater than 0, check your input, and if it is '
-                'valid then report an issue!'
+                "Index must be greater than 0, check your input, and if it is " "valid then report an issue!"
             )
         return v
 
@@ -73,16 +71,12 @@ class AbulNagaYalcinIndex(BaseIndex):
             is_close = isclose(v, 1)
             if not is_close:
                 raise ValueError(
-                    'Index must be less or equal to 1, check your input,'
-                    ' and if it is valid then report an issue!'
+                    "Index must be less or equal to 1, check your input," " and if it is valid then report an issue!"
                 )
         return v
 
 
-def any_index(categories: ArrayLike,
-              responses: ArrayLike,
-              alpha=1.0,
-              beta=1.0) -> AbulNagaYalcinIndex:
+def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) -> AbulNagaYalcinIndex:
     """
     Abul Naga & Yalcin index.
 
@@ -157,7 +151,4 @@ def any_index(categories: ArrayLike,
 
     index = (p_a - p_b + c) / (k_a_b + c)
 
-    return AbulNagaYalcinIndex(index=index,
-                               alpha=alpha,
-                               beta=beta,
-                               n_classes=n_categories)
+    return AbulNagaYalcinIndex(index=index, alpha=alpha, beta=beta, n_classes=n_categories)
