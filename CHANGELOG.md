@@ -1,0 +1,1 @@
+- 2025-12-27 : Szymon Moliński : Abul-Naga and Yalcin Index validators and tests checking if returned index is lower or equal to 1
