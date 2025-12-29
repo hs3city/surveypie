@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from numpy.typing import ArrayLike
 from typing import Sequence
@@ -30,22 +31,22 @@ def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
     # Calculate ratio
     total_responses = len(ds)
     counts_to_total = freq_counts_df["frequency"] / total_responses
-    freq_counts_df["ratio %"] = counts_to_total * 100
+    freq_counts_df["ratio %"] = counts_to_total * 100.0
 
     # Add all indicators
-    summary_df = pd.DataFrame(index=indicators, columns=["frequency", "ratio %"])
+    summary_df = pd.DataFrame(index=indicators)
     summary_df.index.name = "indicator"
 
     # Merge the frequency and percent DataFrames
     # to include 0 counts for missing indicators
-    summary_df.update(freq_counts_df, join="left")
-    summary_df.fillna(0, inplace=True)
+    summary_df = summary_df.join(freq_counts_df, how="left")
+    summary_df.fillna(0.0, inplace=True)
 
     # Calculate cumulative percent
-    summary_df["cumulative"] = summary_df["ratio %"].cumsum() / 100
+    summary_df["cumulative"] = summary_df["ratio %"].cumsum() / 100.0
 
     # Set the last cumulative value to 100
-    summary_df.loc[summary_df["cumulative"] > 1, "cumulative"] = 1
+    summary_df.loc[summary_df["cumulative"] > 1.0, "cumulative"] = 1.0
 
     # Create the final DataFrame
     return summary_df
