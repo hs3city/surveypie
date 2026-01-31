@@ -3,6 +3,8 @@ from typing import Sequence
 from surveypie.core import info
 from numpy.typing import ArrayLike
 
+# todo: refactor this index to be the same as other indexes structurally
+
 ALPHA_LOOKUP_TABLE = {
     3: round(np.log(2) / np.log(3), 2),
     4: round((np.log(4) - np.log(3) / np.log(2)), 2),

@@ -3,7 +3,8 @@ from numpy.typing import ArrayLike
 from typing import Sequence
 
 
-def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
+def info(ds: Sequence,
+         indicators: ArrayLike) -> pd.DataFrame:
     """
     Get basic summary statistics about ordinal dataset.
 
