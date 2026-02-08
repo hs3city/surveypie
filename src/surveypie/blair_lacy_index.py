@@ -33,7 +33,7 @@ class BlairLacyIndex(BaseIndex):
 
     name : str = 'Blair and Lacy Index'
 
-    index_sq_root : float
+    index_sqrt : float
         Blair and Lacy Index - square root of the concentration measure.
 
     min_dispersion : float
@@ -105,8 +105,8 @@ def bl_index(categories: ArrayLike, responses: ArrayLike) -> BlairLacyIndex:
     num = (ds - 0.5)**2
     num_sqrt = np.sqrt(num)
 
-    index = np.sum(num) / denom
-    index_sqrt = np.sqrt(np.sum(num_sqrt) / denom)
+    index = 1 - (np.sum(num) / denom)
+    index_sqrt = 1 - (np.sqrt(np.sum(num_sqrt) / denom))
 
     return BlairLacyIndex(
         index=index,
