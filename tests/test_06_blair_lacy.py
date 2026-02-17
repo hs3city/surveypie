@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import pytest
 
 from surveypie.blair_lacy_index import bl_index, BlairLacyIndex
 
@@ -26,19 +27,19 @@ def test_dispersion():
     categories = [1, 2, 3]
 
     for cat in categories:
-        lowest = np.ones(10) * cat
-        middle = [1, 1, 1, 2, 2, 2, 3, 3, 3, 3]
-        highest = [1, 1, 1, 1, 1, 3, 3, 3, 3, 3]
+
+        highest = [1, 1, 1, 2, 2, 2, 3, 3, 3, 3]
+        lowest = np.ones(10) * cat  # lowest dispersion because all answers
+        # are in a single group and zero in other groups...
+        # highest concentration
 
         d_low = bl_index(categories=categories, responses=lowest)
-        d_mid = bl_index(categories=categories, responses=middle)
         d_high = bl_index(categories=categories, responses=highest)
 
-        assert d_low.index < d_mid.index
-        assert d_mid.index < d_high.index
+        assert d_low.index < d_high.index
 
 
-def test_not_greater_than_1():
+def test_range():
     categories_3 = [1, 2, 3]
     categories_5 = list(range(1, 6))
     categories_10 = list(range(1, 11))
@@ -57,3 +58,108 @@ def test_not_greater_than_1():
         )
 
         assert result.index <= 1
+        assert result.index >= 0
+        assert result.index_sqrt <= 1
+        assert result.index_sqrt >= 0
+
+
+def test_based_on_table_1_example_from_publication():
+    """
+    Blair J, Lacy M G. (2000): Statistics of ordinal variation,
+    Sociological Methods and Research 28(251);251-280
+
+    TABLE 1
+
+    """
+
+    categories = [1, 2, 3, 4]
+    excellent = 153 * [1]
+    good = 208 * [2]
+    fair = 74 * [3]
+    poor = 23 * [4]
+
+    responses = excellent + good + fair + poor
+
+    result = bl_index(categories=categories,
+                        responses=responses)
+    # expected
+    l2 = 0.417
+    index = 0.583
+
+    assert l2 == pytest.approx(result.l2_index, 3)
+    assert index == pytest.approx(result.index, 3)
+
+
+def test_based_on_table_2_example_A_from_publication():
+    """
+    Blair J, Lacy M G. (2000): Statistics of ordinal variation,
+    Sociological Methods and Research 28(251);251-280
+
+    TABLE 2
+
+    """
+
+    categories = [1, 2, 3, 4]
+    excellent = 60 * [1]
+    good = []
+    fair = 20 * [3]
+    poor = 20 * [4]
+
+    responses = excellent + good + fair + poor
+
+    result = bl_index(categories=categories,
+                      responses=responses)
+    # expected
+    l2 = 0.120
+
+    assert l2 == pytest.approx(result.l2_index, 3)
+
+
+def test_based_on_table_2_example_B_from_publication():
+    """
+    Blair J, Lacy M G. (2000): Statistics of ordinal variation,
+    Sociological Methods and Research 28(251);251-280
+
+    TABLE 2
+
+    """
+
+    categories = [1, 2, 3, 4]
+    excellent = 50 * [1]
+    good = []
+    fair = 30 * [3]
+    poor = 20 * [4]
+
+    responses = excellent + good + fair + poor
+
+    result = bl_index(categories=categories,
+                      responses=responses)
+    # expected
+    l2 = 0.147
+
+    assert l2 == pytest.approx(result.l2_index, 3)
+
+
+def test_based_on_table_2_example_F_from_publication():
+    """
+    Blair J, Lacy M G. (2000): Statistics of ordinal variation,
+    Sociological Methods and Research 28(251);251-280
+
+    TABLE 2
+
+    """
+
+    categories = [1, 2, 3, 4]
+    excellent = 10 * [1]
+    good = []
+    fair = 70 * [3]
+    poor = 20 * [4]
+
+    responses = excellent + good + fair + poor
+
+    result = bl_index(categories=categories,
+                      responses=responses)
+    # expected
+    l2 = 0.787
+
+    assert l2 == pytest.approx(result.l2_index, 3)

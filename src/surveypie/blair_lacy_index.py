@@ -29,12 +29,18 @@ class BlairLacyIndex(BaseIndex):
     Attributes
     ----------
     index : float
-        Blair and Lacy index.
+        Blair and Lacy index. Describes dataset dispersion. Index closer to
+        zero means that the dispersion is minimal, and index closer to one
+        means that the dispersion is maximal.
 
     name : str = 'Blair and Lacy Index'
 
     index_sqrt : float
         Blair and Lacy Index - square root of the concentration measure.
+
+    l2_index : floar
+        Blair and Lacy dispersion measure before subtraction (`index`
+        parameter is equal to one minus `l2_index`).
 
     min_dispersion : float
         The maximum possible value of `index_sq`, all records fall into a
@@ -42,6 +48,7 @@ class BlairLacyIndex(BaseIndex):
     """
     name: str = "Blair and Lacy Index"
     index_sqrt: float = np.nan
+    l2_index: float = np.nan
     min_dispersion: float = np.nan
 
 
@@ -102,15 +109,17 @@ def bl_index(categories: ArrayLike, responses: ArrayLike) -> BlairLacyIndex:
 
     denom = (n_categories - 1) / 4
 
-    num = (ds - 0.5)**2
-    num_sqrt = np.sqrt(num)
+    num = (ds.values[:-1] - 0.5)**2
+    num_sum = np.sum(num)
+    l2 = num_sum / denom
 
-    index = 1 - (np.sum(num) / denom)
-    index_sqrt = 1 - (np.sqrt(np.sum(num_sqrt) / denom))
+    index = 1 - l2
+    index_sqrt = 1 - np.sqrt(l2)
 
     return BlairLacyIndex(
         index=index,
         index_sqrt=index_sqrt,
+        l2_index=l2,
         min_dispersion=denom,
         n_classes=n_categories
     )
