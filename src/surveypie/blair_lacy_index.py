@@ -46,6 +46,7 @@ class BlairLacyIndex(BaseIndex):
         The maximum possible value of `index_sq`, all records fall into a
         single ordinal category, minimal dispersion
     """
+
     name: str = "Blair and Lacy Index"
     index_sqrt: float = np.nan
     l2_index: float = np.nan
@@ -53,7 +54,7 @@ class BlairLacyIndex(BaseIndex):
 
 
 def bl_index(categories: ArrayLike, responses: ArrayLike) -> BlairLacyIndex:
-    """
+    r"""
     Blair and Lacy inequality measure.
 
     Parameters
@@ -109,17 +110,11 @@ def bl_index(categories: ArrayLike, responses: ArrayLike) -> BlairLacyIndex:
 
     denom = (n_categories - 1) / 4
 
-    num = (ds.values[:-1] - 0.5)**2
+    num = (ds.values[:-1] - 0.5) ** 2
     num_sum = np.sum(num)
     l2 = num_sum / denom
 
     index = 1 - l2
     index_sqrt = 1 - np.sqrt(l2)
 
-    return BlairLacyIndex(
-        index=index,
-        index_sqrt=index_sqrt,
-        l2_index=l2,
-        min_dispersion=denom,
-        n_classes=n_categories
-    )
+    return BlairLacyIndex(index=index, index_sqrt=index_sqrt, l2_index=l2, min_dispersion=denom, n_classes=n_categories)
