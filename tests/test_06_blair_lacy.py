@@ -80,8 +80,7 @@ def test_based_on_table_1_example_from_publication():
 
     responses = excellent + good + fair + poor
 
-    result = bl_index(categories=categories,
-                        responses=responses)
+    result = bl_index(categories=categories, responses=responses)
     # expected
     l2 = 0.417
     index = 0.583
