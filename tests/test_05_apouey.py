@@ -1,5 +1,6 @@
-from surveypie.apouey_index import get_apouey_index
+from surveypie.apouey_index import ap_index
 import unittest
+
 
 DS = []
 DS.extend(10 * [1])
@@ -12,13 +13,13 @@ INDICATORS = [1, 2, 3, 4, 5]
 
 
 def test_apouey_positive():
-    assert round(get_apouey_index(INDICATORS, DS), 3) == 0.545
+    assert round(ap_index(INDICATORS, DS), 3) == 0.545
 
 
 class ApoueyTestCase(unittest.TestCase):
     def test_apouey_negative(self):
         with self.assertRaises(ValueError):
-            get_apouey_index(categories=[1], responses=DS)
-            get_apouey_index(
+            ap_index(categories=[1], responses=DS)
+            ap_index(
                 categories=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], responses=DS
             )

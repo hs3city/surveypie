@@ -3,6 +3,8 @@ from typing import Sequence
 from surveypie.core import info
 from numpy.typing import ArrayLike
 
+# todo: refactor this index to be the same as other indexes structurally
+
 ALPHA_LOOKUP_TABLE = {
     3: round(np.log(2) / np.log(3), 2),
     4: round((np.log(4) - np.log(3) / np.log(2)), 2),
@@ -15,7 +17,7 @@ ALPHA_LOOKUP_TABLE = {
 }
 
 
-def get_apouey_index(categories: ArrayLike, responses: Sequence) -> float:
+def ap_index(categories: ArrayLike, responses: Sequence) -> float:
     number_of_categories = categories[-1]
     if number_of_categories < 3 or number_of_categories > 10:
         raise ValueError("Category out of range. Please use category within range 3-10.")
