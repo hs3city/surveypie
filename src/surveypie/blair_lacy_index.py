@@ -105,7 +105,7 @@ def bl_index(categories: ArrayLike, responses: ArrayLike) -> BlairLacyIndex:
 
     n_categories = len(categories)
 
-    ds = info(ds=responses, indicators=categories)
+    ds = info(responses=responses, indicators=categories)
     ds = ds["cumulative"]
 
     denom = (n_categories - 1) / 4

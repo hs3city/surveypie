@@ -135,7 +135,7 @@ def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) 
 
     k_a_b = (m - 1) * exp_alpha - (1 - (n_categories - m) * exp_beta)
 
-    ds = info(ds=responses, indicators=categories)
+    ds = info(responses=responses, indicators=categories)
 
     ds = ds["cumulative"]
     p_alpha = ds[ds.index < m]
@@ -151,4 +151,7 @@ def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) 
 
     index = (p_a - p_b + c) / (k_a_b + c)
 
-    return AbulNagaYalcinIndex(index=index, alpha=alpha, beta=beta, n_classes=n_categories)
+    return AbulNagaYalcinIndex(index=index,
+                               alpha=alpha,
+                               beta=beta,
+                               n_classes=n_categories)
