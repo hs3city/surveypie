@@ -2,8 +2,7 @@ from numpy.typing import ArrayLike
 import numpy as np
 
 
-def coeff_of_variation(responses: ArrayLike,
-                       weights: ArrayLike = None) -> float:
+def coeff_of_variation(responses: ArrayLike, weights: ArrayLike = None) -> float:
     """
     Function calculates coefficient of variation, and weighted coefficient
     of variation.
@@ -29,21 +28,23 @@ def coeff_of_variation(responses: ArrayLike,
         r_std = np.std(responses)
 
         if r_mean == 0:
-            raise ZeroDivisionError('Mean of responses is equal to 0, '
-                                    'which means that division by zero is '
-                                    'requested, cannot proceed!.')
+            raise ZeroDivisionError(
+                "Mean of responses is equal to 0, "
+                "which means that division by zero is "
+                "requested, cannot proceed!."
+            )
 
         cov = r_std / r_mean
     else:
         w_mean = np.average(responses, weights=weights)
-        w_std = np.sqrt(
-            np.cov(responses, aweights=weights, bias=True)
-        )
+        w_std = np.sqrt(np.cov(responses, aweights=weights, bias=True))
 
         if w_mean == 0:
-            raise ZeroDivisionError('Weighted mean of responses is equal to 0, '
-                                    'which means that division by zero is '
-                                    'requested, cannot proceed!.')
+            raise ZeroDivisionError(
+                "Weighted mean of responses is equal to 0, "
+                "which means that division by zero is "
+                "requested, cannot proceed!."
+            )
 
         cov = w_std / w_mean
 

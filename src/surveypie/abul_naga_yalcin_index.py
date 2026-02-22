@@ -151,7 +151,4 @@ def any_index(categories: ArrayLike, responses: ArrayLike, alpha=1.0, beta=1.0) 
 
     index = (p_a - p_b + c) / (k_a_b + c)
 
-    return AbulNagaYalcinIndex(index=index,
-                               alpha=alpha,
-                               beta=beta,
-                               n_classes=n_categories)
+    return AbulNagaYalcinIndex(index=index, alpha=alpha, beta=beta, n_classes=n_categories)
