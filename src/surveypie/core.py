@@ -1,19 +1,18 @@
 import pandas as pd
 from numpy.typing import ArrayLike
-from typing import Sequence
 
 
-def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
+def info(responses: ArrayLike, indicators: ArrayLike) -> pd.DataFrame:
     """
     Get basic summary statistics about ordinal dataset.
 
     Parameters
     ----------
-    ds : Sequence
+    responses : ArrayLike
         The collection of answers or grades.
 
-    indicators : Ordered Sequence
-        The ordered collection of unique answers or grades.
+    indicators : ArrayLike
+        The ordered collection of possible answers or grades.
 
     Returns
     -------
@@ -22,13 +21,13 @@ def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
     """
 
     # Calculate frequency using pandas value_counts()
-    freq_counts = pd.Series(ds).value_counts()
+    freq_counts = pd.Series(responses).value_counts()
     freq_counts.name = "frequency"
     freq_counts_df = pd.DataFrame(freq_counts)
     freq_counts_df.index.name = "indicator"
 
     # Calculate ratio
-    total_responses = len(ds)
+    total_responses = len(responses)
     counts_to_total = freq_counts_df["frequency"] / total_responses
     freq_counts_df["ratio %"] = counts_to_total * 100.0
 
@@ -51,16 +50,26 @@ def info(ds: Sequence, indicators: ArrayLike) -> pd.DataFrame:
     return summary_df
 
 
-def summary(data: ArrayLike, percentiles=None) -> pd.DataFrame:
+def summary(responses: ArrayLike, percentiles=None) -> pd.DataFrame:
     """
     Calculates summary statistics of observed levels
-    :param percentiles: the percentiles to include in the output,
-    should fall between 0 and 1
-    :param data: list-like or array-like object with numerical data
-    :return: pandas DataFrame with statistics
+
+    Parameters
+    ----------
+    responses : ArrayLike
+        The collection of numerical responses.
+
+    percentiles : ArrayLike, optional
+        The percentiles to include in the output, every percentile should
+        fall between 0 and 1
+
+    Returns
+    -------
+    df : DataFrame
+
     """
     if percentiles is None:
         percentiles = [0.25, 0.5, 0.75]
-    df = pd.DataFrame(data).describe(percentiles=percentiles)
+    df = pd.DataFrame(responses).describe(percentiles=percentiles)
     df.columns = ["summary"]
     return df
