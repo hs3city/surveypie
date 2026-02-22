@@ -1,2 +1,3 @@
 - 2025-12-27 : Szymon Moliński : Abul-Naga and Yalcin Index validators and tests checking if returned index is lower or equal to 1
 - 2026-02-20 : Szymon Moliński : Blair and Lacy Index implementation, tests, and tutorial
+- 2026-02-22 : Szymon Moliński : Coefficient of Variation implementation, tests, and tutorial
