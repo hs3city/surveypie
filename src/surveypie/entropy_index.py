@@ -62,9 +62,15 @@ def entropy_index(data: ArrayLike, a: float) -> EntropyIndex:
         idx_1 = 1 / (a * (a - 1))
         idx_2 = len(data)
         p = idx_1 * idx_2
-        mean_data = np.mean(data)
+        mu = np.mean(data)
+        if mu == 0:
+            raise ZeroDivisionError('Mean of data is equal to 0, '
+                                    'cannot proceed due to '
+                                    'the numerical instability - '
+                                    'division by zero.')
+
         index = p * np.sum(
-            (data / mean_data) ** a - 1
+            (data / mu) ** a - 1
         )
         eidx = EntropyIndex(index=index, a=a)
         return eidx
@@ -86,6 +92,12 @@ def thiel_first_measure(data: ArrayLike) -> EntropyIndex:
     """
     p1 = 1 / (len(data))
     mu = np.mean(data)
+    if mu == 0:
+        raise ZeroDivisionError('Mean of data is equal to 0, '
+                                'cannot proceed due to '
+                                'the numerical instability - '
+                                'division by zero.')
+
     index = p1 * np.sum(
         (data / mu) * np.log2(data / mu)
     )
@@ -110,6 +122,11 @@ def thiel_second_measure(data: ArrayLike) -> EntropyIndex:
     """
     p1 = 1 / (len(data))
     mu = np.mean(data)
+    if mu == 0:
+        raise ValueError('Trying to get log2(0), '
+                         'cannot proceed due to '
+                         'the numerical instability.')
+
     index = p1 * np.sum(
         np.log2(mu / data)
     )
