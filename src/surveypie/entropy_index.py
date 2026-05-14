@@ -19,9 +19,9 @@ class EntropyIndex(BaseIndex):
         Parameter controlling sensitivity to income levels: large `a` is
         especially sensitive to existence of large incomes, and small
         `a` is sensitive to small incomes. The parameter equal to 0 is
-        the second Thiel measure or mean logarithmic deviation, and it assigns
+        the second Theil measure or mean logarithmic deviation, and it assigns
         larger weights to the bottom part of the distribution. The parameter
-        equal to 1 is the first Thiel measure - it assigns approximately equal
+        equal to 1 is the first Theil measure - it assigns approximately equal
         weights to all parts of the distribution. In cases when `a` is larger
         than 1 it becomes more sensitive to existence of large outliers in
         the distribution.
@@ -47,7 +47,7 @@ def entropy_index(data: ArrayLike, a: float) -> EntropyIndex:
         intensity (e.g. very low incomes). Large `a` value, greater than 1
         makes it more sensitive to the existence of large outliers
         (e.g. extremely high incomes). When set to 0 then it calculates
-        Thiel Second Measure, and when set to 1 it calculates Thiel First
+        Theil Second Measure, and when set to 1 it calculates Theil First
         Measure.
 
     Returns
@@ -55,9 +55,9 @@ def entropy_index(data: ArrayLike, a: float) -> EntropyIndex:
     : EntropyIndex
     """
     if a == 0:
-        return thiel_second_measure(data)
+        return theil_second_measure(data)
     elif a == 1:
-        return thiel_first_measure(data)
+        return theil_first_measure(data)
     else:
         idx_1 = 1 / (a * (a - 1))
         idx_2 = len(data)
@@ -76,9 +76,9 @@ def entropy_index(data: ArrayLike, a: float) -> EntropyIndex:
         return eidx
 
 
-def thiel_first_measure(data: ArrayLike) -> EntropyIndex:
+def theil_first_measure(data: ArrayLike) -> EntropyIndex:
     """
-    Function calculates Thiel First Measure - special case of Entropy Index,
+    Function calculates Theil First Measure - special case of Entropy Index,
     where almost equal weights are assigned to all parts of the distribution.
 
     Parameters
@@ -105,9 +105,9 @@ def thiel_first_measure(data: ArrayLike) -> EntropyIndex:
     return eidx
 
 
-def thiel_second_measure(data: ArrayLike) -> EntropyIndex:
+def theil_second_measure(data: ArrayLike) -> EntropyIndex:
     """
-    Function calculates Thiel Second Measure, or mean logarithmic deviation.
+    Function calculates Theil Second Measure, or mean logarithmic deviation.
     This is a special case of Entropy Index, where larger weights are assigned
     to the bottom part of a distribution (e.g. low incomes).
 
