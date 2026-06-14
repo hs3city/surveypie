@@ -60,7 +60,7 @@ def entropy_index(data: ArrayLike, a: float) -> EntropyIndex:
         return theil_first_measure(data)
     else:
         idx_1 = 1 / (a * (a - 1))
-        idx_2 = len(data)
+        idx_2 = 1 / len(data)
         p = idx_1 * idx_2
         mu = np.mean(data)
         if mu == 0:
