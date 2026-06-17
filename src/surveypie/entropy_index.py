@@ -64,14 +64,14 @@ def entropy_index(data: ArrayLike, a: float) -> EntropyIndex:
         p = idx_1 * idx_2
         mu = np.mean(data)
         if mu == 0:
-            raise ZeroDivisionError('Mean of data is equal to 0, '
-                                    'cannot proceed due to '
-                                    'the numerical instability - '
-                                    'division by zero.')
+            raise ZeroDivisionError(
+                "Mean of data is equal to 0, "
+                "cannot proceed due to "
+                "the numerical instability - "
+                "division by zero."
+            )
 
-        index = p * np.sum(
-            (data / mu) ** a - 1
-        )
+        index = p * np.sum((data / mu) ** a - 1)
         eidx = EntropyIndex(index=index, a=a)
         return eidx
 
@@ -93,14 +93,11 @@ def theil_first_measure(data: ArrayLike) -> EntropyIndex:
     p1 = 1 / (len(data))
     mu = np.mean(data)
     if mu == 0:
-        raise ZeroDivisionError('Mean of data is equal to 0, '
-                                'cannot proceed due to '
-                                'the numerical instability - '
-                                'division by zero.')
+        raise ZeroDivisionError(
+            "Mean of data is equal to 0, " "cannot proceed due to " "the numerical instability - " "division by zero."
+        )
 
-    index = p1 * np.sum(
-        (data / mu) * np.log2(data / mu)
-    )
+    index = p1 * np.sum((data / mu) * np.log2(data / mu))
     eidx = EntropyIndex(index=index, a=1)
     return eidx
 
@@ -123,11 +120,7 @@ def theil_second_measure(data: ArrayLike) -> EntropyIndex:
     p1 = 1 / (len(data))
     mu = np.mean(data)
     if mu == 0:
-        raise ValueError('Trying to get log2(0), '
-                         'cannot proceed due to '
-                         'the numerical instability.')
+        raise ValueError("Trying to get log2(0), " "cannot proceed due to " "the numerical instability.")
 
-    index = p1 * np.sum(
-        np.log2(mu / data)
-    )
+    index = p1 * np.sum(np.log2(mu / data))
     return EntropyIndex(index=index, a=0)
