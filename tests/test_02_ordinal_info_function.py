@@ -30,8 +30,8 @@ def test_columns():
 def test_ratio():
     ratios = RESULT["ratio %"].values
     print(RESULT)
-    assert np.alltrue(ratios >= 0)
-    assert np.alltrue(ratios <= 100)
+    assert np.all(ratios >= 0)
+    assert np.all(ratios <= 100)
 
 
 def test_cumulative():
