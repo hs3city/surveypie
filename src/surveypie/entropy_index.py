@@ -67,8 +67,7 @@ def entropy_index(data: ArrayLike, a: float) -> EntropyIndex:
             raise ZeroDivisionError(
                 "Mean of data is equal to 0, "
                 "cannot proceed due to "
-                "the numerical instability - "
-                "division by zero."
+                "the numerical instability."
             )
 
         index = p * np.sum((data / mu) ** a - 1)
