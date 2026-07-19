@@ -28,12 +28,6 @@ def test_one_negative_case():
         _ = gini_index(arr)
 
 
-def test_allow_negative_case():
-    arr = np.array([1, 0, 1, -50])
-    g = gini_index(arr, allow_negative=True)
-    assert g.index < 0
-
-
 def test_real_numbers():
     arr = np.random.rand(100)
     g = gini_index(arr)

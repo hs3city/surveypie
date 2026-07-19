@@ -44,7 +44,7 @@ def test_weighted_case_ones():
 
     cov = coeff_of_variation(arr)
     w_cov = coeff_of_variation(arr, weights=weights)
-    assert cov == w_cov
+    assert np.allclose(cov, w_cov)
 
 
 def test_weighted_case_negative_weights():

@@ -20,7 +20,7 @@ class GiniIndex(BaseIndex):
     name: str = "Gini Index"
 
 
-def gini_index(data: ArrayLike, allow_negative: bool = False) -> GiniIndex:
+def gini_index(data: ArrayLike) -> GiniIndex:
     """
     Gini coeffcient calculation (the population Gini coeffcient).
 
@@ -28,10 +28,6 @@ def gini_index(data: ArrayLike, allow_negative: bool = False) -> GiniIndex:
     ----------
     data : ArrayLike
         Vector with data.
-
-    allow_negative : bool, default = False
-        Allow negative input to Gini index, and do not test
-        if numbers are below zero.
 
     Returns
     -------
@@ -47,23 +43,20 @@ def gini_index(data: ArrayLike, allow_negative: bool = False) -> GiniIndex:
     n = len(data)
     d = np.sort(data)
 
-    if not allow_negative:
-        if d[0] < 0:
-            raise ValueError(
-                'Negative values passed into input data array, remove those '
-                'or set to zero before calculating Gini index, or change the '
-                'inequality index altogether.'
-            )
+    if d[0] < 0:
+        raise ValueError(
+            "Negative values passed into input data array, remove those "
+            "or set to zero before calculating Gini index, or change the "
+            "inequality index altogether."
+        )
 
     r = np.arange(1, n + 1)
-    num = (2 * np.dot(d, r))
-    denom = (n * np.sum(d))
+    num = 2 * np.dot(d, r)
+    denom = n * np.sum(d)
     if denom == 0:
         raise ZeroDivisionError(
-            "Denominator in equation is equal to 0, "
-            "cannot proceed due to "
-            "the numerical instability."
+            "Denominator in equation is equal to 0, " "cannot proceed due to " "the numerical instability."
         )
     g = num / denom - ((n + 1) / n)
-    G = GiniIndex(index=g)
-    return G
+    gi = GiniIndex(index=g)
+    return gi
